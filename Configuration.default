@@ -24,11 +24,14 @@ setenv LD_LIBRARY_PATH $SYBASE/OCS-12_5/lib
 # PATH
 set path = ($path $SYBASE/ASE-12_5/bin $SYBASE/OCS-12_5/bin $INSTALLDIR/bin)
 
+# DB Name
+setenv DBNAME radar_release
+
 # DB User
 setenv DBUSER mgd_dbo
 
 # DBPASSWORD File
-setenv DBPASSWORDFILE $INSTALLDIR/.mgd_dbo_password
+setenv DBPASSWORDFILE /usr/local/mgi/dbutils/mgidbutilities/.mgd_dbo_password
 
 # DB Schema Product
 setenv SCHEMADIR	/usr/local/mgi/dbutils/radar/radardbschema
