@@ -8,6 +8,11 @@
 #	ex. 	source Configuration.default
 #
 
+# DB Schema Product
+setenv SCHEMADIR /usr/local/mgi/dbutils/radar/radardbschema
+
+source ${SCHEMADIR}/Configuration
+
 # install directory
 setenv INSTALLDIR /usr/local/mgi/dbutils/radardbutilities
 
@@ -17,22 +22,5 @@ setenv SYSTEMDOCDIR $INSTALLDIR/system_docs
 # data directory
 setenv DATADIR $INSTALLDIR/data
 
-# SYBASE
-setenv SYBASE /opt/sybase/12.5
-setenv LD_LIBRARY_PATH $SYBASE/OCS-12_5/lib
-
 # PATH
 set path = ($path $SYBASE/ASE-12_5/bin $SYBASE/OCS-12_5/bin $INSTALLDIR/bin)
-
-# DB Name
-setenv DBNAME radar_release
-
-# DB User
-setenv DBUSER mgd_dbo
-
-# DBPASSWORD File
-setenv DBPASSWORDFILE /usr/local/mgi/dbutils/mgidbutilities/.mgd_dbo_password
-
-# DB Schema Product
-setenv SCHEMADIR	/usr/local/mgi/dbutils/radar/radardbschema
-
