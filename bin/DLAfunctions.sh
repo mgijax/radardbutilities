@@ -447,6 +447,29 @@ do
 done
 }
 
+###########################################################################
+#
+#  Name:  preload
+#
+#  Usage:  preload
+#
+#  Purpose:  runs createArchive, startLog, getConfigEnv, and obtains a jobkey
+#
+#  Returns:
+#
+#	Nothing = Successful completion
+#	1 = An error occurred
+#
+#  Assumes:  Nothing
+#
+#  Effects:  Nothing
+#
+#  Throws:  Nothing
+#
+#  Notes:  None
+#
+###########################################################################
+
 preload ()
 {
 #
@@ -483,11 +506,29 @@ fi
 echo "JOBKEY=${JOBKEY}" >> ${LOG_PROC}
 }
 
+###########################################################################
+#
+#  Name:  postload
+#
+#  Usage:  postload
+#
+#  Purpose:  runs stopLog and closes out jobkey
+#
+#  Returns:
+#
+#	Nothing = Successful completion
+#	1 = An error occurred
+#
+#  Assumes:  Nothing
+#
+#  Effects:  Nothing
+#
+#  Throws:  Nothing
+#
+#  Notes:  None
+#
+###########################################################################
 
-#
-#  Function that performs cleanup tasks for the job stream prior to
-#  termination.
-#
 postload ()
 {
     #
@@ -508,6 +549,9 @@ postload ()
 
 
 #  $Log$
+#  Revision 1.1  2004/04/12 19:30:12  dbm
+#  Moved from parent directory
+#
 #  Revision 1.3  2004/04/09 17:55:19  dbm
 #  Removed mail function calls from preload and postload
 #
