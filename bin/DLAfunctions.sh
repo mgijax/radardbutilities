@@ -662,11 +662,21 @@ dlaInstall ()
       echo "It should be set to the directory where report files are created."
       install_failed
   fi
+
+  #
+  #  Verify that the REPORTS directory has been defined.
+  #
+  if [ "${OUTPUTDIR}" = "" ]
+  then
+      echo "Environment variable OUTPUTDIR has not been defined."
+	echo "It should be set to the directory where report files are created."
+	install_failed
+  fi
   
   #
   #  Make the required directories if they don't already exist.
   #
-  for i in ${FILEDIR} ${ARCHIVEDIR} ${DATADIR} ${LOGDIR} ${RPTDIR}
+  for i in ${FILEDIR} ${ARCHIVEDIR} ${DATADIR} ${LOGDIR} ${RPTDIR} ${OUTPUTDIR}
   do
       if [ ! -d ${i} ]
       then
@@ -704,6 +714,9 @@ dlaInstall ()
 }
 
 #  $Log$
+#  Revision 1.3  2004/04/16 17:07:21  mbw
+#  added new functions to support common dla installation procedures
+#
 #  Revision 1.2  2004/04/15 19:03:58  mbw
 #  added headers for preload and postload methods
 #
