@@ -1,3 +1,9 @@
+TAG: radardbutilities-1-0-15
+DATE: 10/14/2004
+STAFF: lec
+CHANGES:
+1) Fixed logMirroredFiles.py
+
 TAG: radardbutilities-1-0-14
 DATE: 10/12/2004
 STAFF: dbm
