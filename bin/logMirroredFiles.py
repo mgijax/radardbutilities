@@ -129,6 +129,11 @@ for line in pkgFile.readlines():
 		    fileSize = os.stat(f)[6]
 #		    print f, str(fileSize)
 
+		    # don't log lock files or dummy files
+
+		    if string.find(f, "lock") >= 0 or string.find(f, "ncdummy") >= 0:
+		      continue
+
 		    # log the file to RADAR
 		    db.sql('exec APP_logMirroredFile "%s", "%s", %s, "%s", "%s"' 
 			% (fileType, os.path.join(local_dir, f), fileSize, fileTimeStamp, unixLogin), None)
@@ -153,6 +158,9 @@ for r in results:
 sys.exit(0)
 
 # $Log$
+# Revision 1.8  2004/10/14 16:35:10  lec
+# print out files fix
+#
 # Revision 1.7  2004/10/12 17:20:52  lec
 # only print out files logged on current date
 #
