@@ -65,9 +65,11 @@ import os
 import string
 import time
 import db
+import mgi_utils
 
 package_str = 'package='
 local_dir_str = 'local_dir='
+cdate = mgi_utils.date('%m/%d/%Y')
 
 #
 # Main
@@ -125,7 +127,7 @@ for line in pkgFile.readlines():
 			% (localtime[1], localtime[2], localtime[0], localtime[3], localtime[4])
 
 		    fileSize = os.stat(f)[6]
-		    print f, str(fileSize)
+#		    print f, str(fileSize)
 
 		    # log the file to RADAR
 		    db.sql('exec APP_logMirroredFile "%s", "%s", %s, "%s", "%s"' 
@@ -139,9 +141,21 @@ if not foundLocalDir:
     print 'Could not find package file path: "%s"' % (local_dir_str)
     sys.exit(1)
 
+# only print out the files that were logged on the current date
+
+results = db.sql('select fileName, fileSize from APP_FilesMirrored ' + \
+	'where createdBy = "%s" ' % (unixLogin) + \
+	'and convert(char(10), creation_date, 101) = "%s" ' % (cdate) + \
+	'order by _File_key', 'auto')
+for r in results:
+    print r['fileName'], `r['fileSize']`
+
 sys.exit(0)
 
 # $Log$
+# Revision 1.6  2004/06/04 16:23:48  lec
+# fix print
+#
 # Revision 1.5  2004/04/30 11:51:40  lec
 # JSAM
 #
