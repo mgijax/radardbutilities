@@ -28,7 +28,6 @@
 #    DBPASSWORDFILE
 #    JOBSTREAMKEY
 #    FILENAME
-#    USER (unix login)
 #
 # Inputs:
 #
@@ -71,14 +70,17 @@ database = os.environ['DBNAME']
 user = os.environ['DBUSER']
 passwordFileName = os.environ['DBPASSWORDFILE']
 password = string.strip(open(passwordFileName, 'r').readline())
-unixLogin = os.environ['USER']
 jobStreamKey = os.environ['JOBSTREAMKEY']
 fileName = os.environ['FILENAME']
 
 # Initialize db.py DBMS parameters
 db.set_sqlLogin(user, password, server, database)
  
-db.sql('exec APP_logProcessedFile %s, "%s", "%s"' % (jobStreamKey, fileName, unixLogin), None)
+# Log the processed file
+db.sql('exec APP_logProcessedFile %s, "%s"' % (jobStreamKey, fileName), None)
 
 # $Log$
+# Revision 1.1  2004/04/29 18:34:38  lec
+# JSAM
+#
 #

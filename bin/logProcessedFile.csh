@@ -58,7 +58,7 @@ endif
 
 source ${RDRDBSCHEMAPATH}/Configuration
 
-# uses DBSERVER, DBNAME, DBUSER, DBPASSWORDFILE, JOBSTREAMKEY, FILENAME, USER env variables
+# uses DBSERVER, DBNAME, DBUSER, DBPASSWORDFILE, JOBSTREAMKEY, FILENAME env variables
 ./logProcessedFile.py
 
 # if status != 0, then exit with return code 1
