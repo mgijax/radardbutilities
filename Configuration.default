@@ -9,12 +9,12 @@
 #
 
 # DB Schema Product
-setenv SCHEMADIR /usr/local/mgi/dbutils/radar/radardbschema
+setenv SCHEMADIR /usr/local/mgi/live/dbutils/radar/radardbschema
 
 source ${SCHEMADIR}/Configuration
 
 # install directory
-setenv INSTALLDIR /usr/local/mgi/dbutils/radardbutilities
+setenv INSTALLDIR /usr/local/mgi/live/dbutils/radardbutilities
 
 # system doc directory
 setenv SYSTEMDOCDIR $INSTALLDIR/system_docs
@@ -29,7 +29,7 @@ setenv LOGDIR $INSTALLDIR/logs
 set path = ($path $SYBASE/ASE-12_5/bin $SYBASE/OCS-12_5/bin $INSTALLDIR/bin)
 
 # Python path
-setenv PYTHONPATH /usr/local/mgi/lib/python
+setenv PYTHONPATH /usr/local/mgi/live/lib/python
 
 # MGD database settings
 setenv MGD_DBSERVER PROD_MGI
