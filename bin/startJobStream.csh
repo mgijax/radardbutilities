@@ -36,13 +36,15 @@ source ${DBSCHEMAPATH}/Configuration
 
 cd `dirname $0`
 set jobStreamKey=`./startJobStream.py`
-echo $jobStreamKey
 
 # if job stream key is -1, then exit with return code 1
 
-if ( $jobStreamKey == -1 ) then
+if ( $jobStreamKey == '' || $jobStreamKey == '-1' ) then
+        set jobStreamKey='-1'
+        echo $jobStreamKey
 	exit 1
 else
+        echo $jobStreamKey
 	exit 0
 endif
  
