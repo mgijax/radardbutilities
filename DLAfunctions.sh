@@ -481,7 +481,6 @@ then
     exit 1
 fi
 echo "JOBKEY=${JOBKEY}" >> ${LOG_PROC}
-
 }
 
 
@@ -505,23 +504,13 @@ postload ()
     #  End the log files.
     #
     stopLog ${LOG_PROC} ${LOG_DIAG} ${LOG_CUR} ${LOG_VAL} | tee -a ${LOG}
-
-    #
-    #  Mail the logs to the support staff.
-    #
-    if [ "${MAIL_LOG_PROC}" != "" ]
-    then
-	mailLog ${MAIL_LOG_PROC} "TIGR Load - Process Summary Log" ${LOG_PROC} | tee -a ${LOG}
-    fi
-
-    if [ "${MAIL_LOG_CUR}" != "" ]
-    then
-	mailLog ${MAIL_LOG_CUR} "TIGR Load - Curator Summary Log" ${LOG_CUR} | tee -a ${LOG}
-    fi
 }
 
 
 #  $Log$
+#  Revision 1.2  2004/04/09 17:32:51  mbw
+#  added preload and postload functions
+#
 #  Revision 1.6  2004/03/31 15:29:20  dbm
 #  Use hostname command to get platform name in getConfigEnv() function
 #
