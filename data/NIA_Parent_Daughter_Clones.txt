@@ -16603,6 +16603,7 @@ C0949G11	H4015D05	7.4k	NIA Mouse 12.5-dpc Male Genital Ridge/Mesonephros cDNA Li
 C0949G12	H4015D06	7.4k	NIA Mouse 12.5-dpc Male Genital Ridge/Mesonephros cDNA Library (Long)
 C0949H09	H4015D07	7.4k	NIA Mouse 12.5-dpc Male Genital Ridge/Mesonephros cDNA Library (Long)
 C0949H10	H4015D08	7.4k	NIA Mouse 12.5-dpc Male Genital Ridge/Mesonephros cDNA Library (Long)
+G0001A09	H4015D09	7.4k	NIA Mouse E7.5 Embryonic Portion cDNA Library
 G0103C02	H4015D10	7.4k	NIA Mouse E7.5 Embryonic Portion cDNA Library
 G0103G10	H4015D11	7.4k	NIA Mouse E7.5 Embryonic Portion cDNA Library
 G0103H07	H4015D12	7.4k	NIA Mouse E7.5 Embryonic Portion cDNA Library
@@ -16636,6 +16637,7 @@ J0014F12	H4015G03	7.4k	Mouse 3.5-dpc blastocyst cDNA
 J0014G09	H4015G04	7.4k	Mouse 3.5-dpc blastocyst cDNA
 J0019H03	H4015G05	7.4k	Mouse 3.5-dpc blastocyst cDNA
 J0020E01	H4015G06	7.4k	Mouse 3.5-dpc blastocyst cDNA
+J0022H10	H4015G07	7.4k	Mouse 3.5-dpc blastocyst cDNA
 J0023C08	H4015G08	7.4k	Mouse 3.5-dpc blastocyst cDNA
 J0027A10	H4015G09	7.4k	Mouse 3.5-dpc blastocyst cDNA
 J0028A05	H4015G10	7.4k	Mouse 3.5-dpc blastocyst cDNA
