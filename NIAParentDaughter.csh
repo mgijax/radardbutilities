@@ -24,6 +24,7 @@
 #
 #	/data/downloads/clone_sets/NIA/NIA-CloneSets-DaughterClone.txt
 #	/data/downloads/clone_sets/NIA/NIA-CloneSets-ParentClone.txt
+#	/data/downloads/clone_sets/NIA/NIA-CloneSets-ParentClone-Ext.txt
 #
 # Outputs:
 #
@@ -50,8 +51,9 @@ rm -rf ${LOG}
 touch ${LOG}
 
 setenv TABLE	NIA_Parent_Daughter_Clones
-setenv DATAFILE1	/data/downloads/clone_sets/NIA/NIA-CloneSets-DaughterClone.txt
-setenv DATAFILE2	/data/downloads/clone_sets/NIA/NIA-CloneSets-ParentClone.txt
+setenv DAUGHTERFILE	/data/downloads/clone_sets/NIA/NIA-CloneSets-DaughterClone.txt
+setenv PARENTFILE	/data/downloads/clone_sets/NIA/NIA-CloneSets-ParentClone.txt
+setenv PARENTFILE_EXT	/data/downloads/clone_sets/NIA/NIA-CloneSets-ParentClone-Ext.txt
 
 date >> ${LOG}
 
@@ -90,8 +92,12 @@ quit
 
 EOSQL
 
-cat ${DBPASSWORDFILE} | bcp tempdb..NIA_Daughter in ${DATAFILE1} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
-cat ${DBPASSWORDFILE} | bcp tempdb..NIA_Parent in ${DATAFILE2} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
+cat ${DBPASSWORDFILE} | bcp tempdb..NIA_Daughter in ${DAUGHTERFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
+cat ${DBPASSWORDFILE} | bcp tempdb..NIA_Parent in ${PARENTFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
+
+if ( -r ${PARENTFILE_EXT} ) then
+    cat ${DBPASSWORDFILE} | bcp tempdb..NIA_Parent in ${PARENTFILE_EXT} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
+endif
 
 ${SCHEMADIR}/table/${TABLE}_truncate.object | tee -a ${LOG}
 ${SCHEMADIR}/index/${TABLE}_drop.object | tee -a ${LOG}
