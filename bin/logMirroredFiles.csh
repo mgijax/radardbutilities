@@ -73,8 +73,8 @@ endif
 source ${RDRDBSCHEMAPATH}/Configuration
 
 # traverse thru the files in the MirrorFTPPackage local_dir and log new ones in RADAR
-# uses DBSERVER, DBNAME, DBUSER, DBPASSWORDFILE env variables
-./logMirroredFiles.py ${MIRRORFTPPKGFILE} ${MIRRORFTPPKG} ${LOGFILETYPE}
+# uses DBSERVER, DBNAME, DBUSER, DBPASSWORDFILE, MIRRORFTPPKGFILE, MIRRORFTPPKG, LOGFILETYPE env variables
+./logMirroredFiles.py
 
 # if status != 0, then exit with return code 1
 

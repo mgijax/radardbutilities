@@ -18,13 +18,7 @@
 # Requirements Satisfied by This Program:
 #
 # Usage:
-#	logMirroredFiles.py MIRRORFTPPKGFILE MIRRORFTPPKG LOGFILETYPE
-#
-#	MIRRORFTPPKGFILE is the name of the mirror_ftp package file (ex. grendel.jax.org)
-#	MIRRORFTPPKG is the name of the specific package within the file that
-#		is downloading the files we want to log (ex. GB_NC)
-#	LOGFILETYPE is the file type of the files we're logging (ex. "GenBank").
-#		This value will be stored in APP_FilesMirrored.fileType.
+#	logMirroredFiles.py
 #
 # Envvars:
 #
@@ -32,6 +26,9 @@
 #    DBNAME
 #    DBUSER
 #    DBPASSWORDFILE
+#    MIRRORFTPPKGFILE
+#    MIRRORFTPPKG
+#    LOGFILETYPE
 #    USER (unix login)
 #
 # Inputs:
@@ -82,10 +79,9 @@ user = os.environ['DBUSER']
 passwordFileName = os.environ['DBPASSWORDFILE']
 password = string.strip(open(passwordFileName, 'r').readline())
 unixLogin = os.environ['USER']
-
-pkgFileName = sys.argv[1]
-pkg = sys.argv[2]
-fileType = sys.argv[3]
+pkgFileName = os.environ['MIRRORFTPPKGFILE']
+pkg = os.environ['MIRRORFTPPKG']
+fileType = os.environ['LOGFILETYPE']
 
 # Initialize db.py DBMS parameters
 db.set_sqlLogin(user, password, server, database)
@@ -143,3 +139,6 @@ if not foundLocalDir:
 sys.exit(0)
 
 # $Log$
+# Revision 1.1  2004/04/29 15:29:22  lec
+# JSAM
+#
