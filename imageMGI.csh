@@ -26,7 +26,7 @@
 #
 # Outputs:
 #
-#	imageMGI.csh.log
+#	data/imageMGI.csh.log
 #
 # Exit Codes:
 #
@@ -36,7 +36,10 @@
 #
 # Implementation:
 #
-#    Modules:
+#	1. Truncate table
+#	2. Drop Indexes
+#	3. BCP file
+#	4. Create Indexes
 #
 # Modification History:
 #
@@ -61,3 +64,4 @@ cat $DBPASSWORDFILE | bcp ${DBNAME}..${TABLE} in ${DATAFILE} -c -t\\t -U$DBUSER 
 ${SCHEMADIR}/index/${TABLE}_create.object | tee -a ${LOG}
 
 date >> $LOG
+

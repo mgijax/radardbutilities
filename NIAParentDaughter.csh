@@ -37,8 +37,6 @@
 #
 # Implementation:
 #
-#    Modules:
-#
 # Modification History:
 #
 # 11/12/2003	lec
@@ -117,7 +115,6 @@ quit
 EOSQL
 
 ${SCHEMADIR}/index/${TABLE}_create.object | tee -a ${LOG}
-exit 0
 
 cat - <<EOSQL | doisql.csh $0 >>& $LOG
 
