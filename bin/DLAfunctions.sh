@@ -2,6 +2,7 @@
 #  $Name$
 #
 #  DLAfunctions.sh
+
 ###########################################################################
 #
 #  Purpose:  This script provides shell script functions to any script that
@@ -449,6 +450,43 @@ done
 
 ###########################################################################
 #
+#  Name:  setJavaPermissions
+#
+#  Usage:  setJavaPermissions
+#
+#  Purpose:  sets the appropriate permissions for the java directories and files
+#
+#  Returns:
+#
+#       Nothing = Successful completion
+#       1 = An error occurred
+#
+#  Assumes:  Nothing
+#
+#  Effects:  Nothing
+#
+#  Throws:  Nothing
+#
+#  Notes:  None
+#
+###########################################################################
+
+setJavaPermissions ()
+{
+  echo "Set permissions on generated directories and files"
+  chmod -fR 750 classes
+  chmod -fR 755 javadocs
+  chmod -f 750 *.jar
+  find classes -type d -exec chmod -f 750 {} \;
+  find classes -name "*.class" -exec chmod -f 640 {} \;
+  find javadocs -type d -exec chmod -f 755 {} \;
+  find javadocs -type f -exec chmod -f 644 {} \;
+  find java -type d -exec chmod -f 750 {} \;
+  find java -name "*.java" -exec chmod -f 640 {} \;
+}
+
+###########################################################################
+#
 #  Name:  preload
 #
 #  Usage:  preload
@@ -512,12 +550,12 @@ echo "JOBKEY=${JOBKEY}" >> ${LOG_PROC}
 #
 #  Usage:  postload
 #
-#  Purpose:  runs stopLog and closes out jobkey
+#  Purpose:  runs stopLog, and closes out jobkey
 #
 #  Returns:
 #
-#	Nothing = Successful completion
-#	1 = An error occurred
+#       Nothing = Successful completion
+#       1 = An error occurred
 #
 #  Assumes:  Nothing
 #
@@ -547,8 +585,128 @@ postload ()
     stopLog ${LOG_PROC} ${LOG_DIAG} ${LOG_CUR} ${LOG_VAL} | tee -a ${LOG}
 }
 
+###########################################################################
+#
+#  Name:  dlaInstall
+#
+#  Usage:  dlaInstall
+#
+#  Purpose:  creates the required support files for the DLA
+#
+#  Returns:
+#
+#	Nothing = Successful completion
+#	1 = An error occurred
+#
+#  Assumes:  Nothing
+#
+#  Effects:  Nothing
+#
+#  Throws:  Nothing
+#
+#  Notes:  None
+#
+###########################################################################
+
+dlaInstall ()
+{
+
+  #
+  #  Verify that the FILE directory has been defined.
+  #
+  if [ "${FILEDIR}" = "" ]
+  then
+      echo "Environment variable FILEDIR has not been defined."
+      echo "It should be set to the directory where the archive, data,"
+      echo "logs and reports directories are created."
+      install_failed
+  fi
+  
+  #
+  #  Verify that the ARCHIVE directory has been defined.
+  #
+  if [ "${ARCHIVEDIR}" = "" ]
+  then
+      echo "Environment variable ARCHIVEDIR has not been defined."
+      echo "It should be set to the directory where archive files are created."
+      install_failed
+  fi
+  
+  #
+  #  Verify that the DATA directory has been defined.
+  #
+  if [ "${DATADIR}" = "" ]
+  then
+      echo "Environment variable DATADIR has not been defined."
+      echo "It should be set to the directory where input files reside and"
+      echo "bcp files are created."
+      install_failed
+  fi
+  
+  #
+  #  Verify that the LOGS directory has been defined.
+  #
+  if [ "${LOGDIR}" = "" ]
+  then
+      echo "Environment variable LOGDIR has not been defined."
+      echo "It should be set to the directory where log files are created."
+      install_failed
+  fi
+  
+  #
+  #  Verify that the REPORTS directory has been defined.
+  #
+  if [ "${RPTDIR}" = "" ]
+  then
+      echo "Environment variable RPTDIR has not been defined."
+      echo "It should be set to the directory where report files are created."
+      install_failed
+  fi
+  
+  #
+  #  Make the required directories if they don't already exist.
+  #
+  for i in ${FILEDIR} ${ARCHIVEDIR} ${DATADIR} ${LOGDIR} ${RPTDIR}
+  do
+      if [ ! -d ${i} ]
+      then
+	  mkdir -p ${i} >/dev/null 2>&1
+	  if [ $? -eq 0 ]
+	  then
+              echo "Directory created: ${i}"
+	  else
+              echo "Cannot create directory: ${i}"
+              install_failed
+	  fi
+      else
+	  echo "Directory already exists: ${i}"
+      fi
+  done
+  
+  #
+  #  Set permissions on generated directories
+  #
+  echo "Set permissions on installed directories and files"
+  chmod -f 755 ${FILEDIR} ${ARCHIVEDIR} ${DATADIR} ${LOGDIR} ${RPTDIR}
+
+  #
+  #  Copy the HTML index file to the FILE directory.
+  #
+  if [ -f ${INDEXFILE} ]
+  then
+      echo "Copy ${INDEXFILE} to ${FILEDIR}"
+      cp -p ${INDEXFILE} ${FILEDIR}
+  else
+      echo "Missing HTML index file: ${INDEXFILE}"
+      install_failed
+  fi
+
+}
 
 #  $Log$
+#  Revision 1.2  2004/04/15 19:03:58  mbw
+#  added headers for preload and postload methods
+#
 #  Revision 1.1  2004/04/12 19:30:12  dbm
 #  Moved from parent directory
 #
