@@ -28,6 +28,7 @@
 #    DBPASSWORDFILE
 #    JOBSTREAMNAME
 #    FILETYPES
+#    MAXFILESIZE
 #
 # Inputs:
 #
@@ -66,6 +67,7 @@ passwordFileName = os.environ['DBPASSWORDFILE']
 password = string.strip(open(passwordFileName, 'r').readline())
 jobStreamName = os.environ['JOBSTREAMNAME']
 fileTypes = os.environ['FILETYPES']
+maxFileSize = os.environ['MAXFILESIZE']
 
 # Initialize db.py DBMS parameters
 db.set_sqlLogin(user, password, server, database)
@@ -73,7 +75,7 @@ db.set_sqlLogin(user, password, server, database)
 # Retrieve the files
 filesToProcess = []
 for f in string.split(fileTypes, ' '):
-    results = db.sql('exec APP_getFilesToProcess "%s", "%s"'  % (jobStreamName, f), 'auto')
+    results = db.sql('exec APP_getFilesToProcess "%s", "%s", %s'  % (jobStreamName, f, maxFileSize), 'auto')
     for r in results:
 	filesToProcess.append(r['fileName'])
 
@@ -81,4 +83,7 @@ for f in string.split(fileTypes, ' '):
 print string.join(filesToProcess, ' ')
 
 # $Log$
+# Revision 1.1  2004/04/29 16:55:24  lec
+# JSAM
+#
 #
