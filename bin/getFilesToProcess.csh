@@ -38,7 +38,7 @@
 #
 
 if  ( ${#argv} < 3 ) then
-    echo "Usage: $0  RDRDBSchemaPath JobStreamName FileType1
+    echo "Usage: $0  RDRDBSchemaPath JobStreamName FileTypes"
     exit 1
 else
     setenv RDRDBSCHEMAPATH $1
