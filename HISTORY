@@ -1,9 +1,16 @@
+TAG: radardbutilities-1-0-6
+DATE: 04/13/2004
+STAFF: dbm
+RELEASE: A
+CHANGES: 
+1) Moved scripts to the bin directory
+
 TAG: radardbutilities-1-0-5
 DATE: 04/09/2004
 STAFF: dbm
 RELEASE: A
 CHANGES: 
-1) Moved jobStream and DLAfunctions scripts for mgidbutilities
+1) Moved jobStream and DLAfunctions scripts from mgidbutilities
 
 TAG: radardbutilities-1-0-4
 DATE: 04/01/2004
