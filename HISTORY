@@ -1,3 +1,9 @@
+TAG: radardbutilities-1-0-8
+DATE: 04/16/2004
+STAFF: mbw
+CHANGES:
+1) added an OUTPUTDIR to the directories created in the install function from DLAfunctions.sh
+
 TAG: radardbutilities-1-0-7
 DATE: 04/16/2004
 STAFF: mbw
