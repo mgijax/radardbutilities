@@ -22,5 +22,15 @@ setenv SYSTEMDOCDIR $INSTALLDIR/system_docs
 # data directory
 setenv DATADIR $INSTALLDIR/data
 
+# log directory
+setenv LOGDIR $INSTALLDIR/logs
+
 # PATH
 set path = ($path $SYBASE/ASE-12_5/bin $SYBASE/OCS-12_5/bin $INSTALLDIR/bin)
+
+# Python path
+setenv PYTHONPATH /usr/local/mgi/lib/python
+
+# MGD database settings
+setenv MGD_DBSERVER PROD_MGI
+setenv MGD_DBNAME mgd
