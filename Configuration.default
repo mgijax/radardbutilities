@@ -1,0 +1,35 @@
+#!/bin/csh
+
+#
+# Configuration.default
+#
+# Source this file from any csh script to set the env variables
+#
+#	ex. 	source Configuration.default
+#
+
+# install directory
+setenv INSTALLDIR /usr/local/mgi/dbutils/radardbutilities
+
+# system doc directory
+setenv SYSTEMDOCDIR $INSTALLDIR/system_docs
+
+# data directory
+setenv DATADIR $INSTALLDIR/data
+
+# SYBASE
+setenv SYBASE /opt/sybase/12.5
+setenv LD_LIBRARY_PATH $SYBASE/OCS-12_5/lib
+
+# PATH
+set path = ($path $SYBASE/ASE-12_5/bin $SYBASE/OCS-12_5/bin $INSTALLDIR/bin)
+
+# DB User
+setenv DBUSER mgd_dbo
+
+# DBPASSWORD File
+setenv DBPASSWORDFILE $INSTALLDIR/.mgd_dbo_password
+
+# DB Schema Product
+setenv SCHEMADIR	/usr/local/mgi/dbutils/radar/radardbschema
+
