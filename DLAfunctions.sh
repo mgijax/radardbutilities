@@ -346,58 +346,6 @@ fi
 
 ###########################################################################
 #
-#  Name:  runConfig
-#
-#  Usage:  runConfig  configfile1  configfile2  ...  configfileN
-#
-#          where
-#              configfiles are configuration files to execute to set
-#                  up the environment.
-#
-#  Purpose:  Run one or more configuration files to establish the
-#            environment.
-#
-#  Returns:
-#
-#      Nothing = Successful completion
-#      1 = An error occurred
-#
-#  Assumes:  Nothing
-#
-#  Effects:  Nothing
-#
-#  Throws:  Nothing
-#
-#  Notes:  None
-#
-###########################################################################
-runConfig ()
-{
-#
-#  Make sure at least one config file was passed to the script.
-#
-if [ $# -eq 0 ]
-then
-    echo "Usage:  runConfig  configfile(s)"
-    exit 1
-fi
-
-while [ "$1" != "" ]
-do
-    if [ -r $1 ]
-    then
-        . $1
-    else
-        echo "Cannot read configuration file: $1"
-        exit 1
-    fi
-    shift
-done
-}
-
-
-###########################################################################
-#
 #  Name:  startLog
 #
 #  Usage:  startLog  logfile1  logfile2  ...  logfileN
@@ -425,12 +373,13 @@ done
 ###########################################################################
 startLog ()
 {
+
 #
 #  Make sure at least one log file was passed to the script.
 #
 if [ $# -eq 0 ]
 then
-    echo "Usage:  startLog  logfile(s)"
+    echo "Usage:  startLog  logfile(s)" | tee -a ${LOG}
     exit 1
 fi
 
@@ -440,7 +389,7 @@ do
     then
         echo "Start Log: `date`" > $1
     else
-        echo "Cannot write to log file: $1"
+        echo "Cannot write to log file: $1" | tee -a ${LOG}
         exit 1
     fi
     shift
@@ -481,7 +430,7 @@ stopLog ()
 #
 if [ $# -eq 0 ]
 then
-    echo "Usage:  startLog  logfile(s)"
+    echo "Usage:  startLog  logfile(s)" | tee -a ${LOG}
     exit 1
 fi
 
@@ -491,11 +440,84 @@ do
     then
         echo "\nStop Log: `date`" >> $1
     else
-        echo "Cannot write to log file: $1"
+        echo "Cannot write to log file: $1" | tee -a ${LOG}
         exit 1
     fi
     shift
 done
+}
+
+preload ()
+{
+#
+#  Function that performs cleanup tasks for the job stream prior to
+#  termination.
+#
+#
+#  Archive the log and report files from the previous run.
+#
+createArchive ${ARCHIVEDIR} ${LOGDIR} ${RPTDIR} | tee -a ${LOG}
+
+#
+#  Initialize the log files.
+#
+startLog ${LOG_PROC} ${LOG_DIAG} ${LOG_CUR} ${LOG_VAL} | tee -a ${LOG}
+
+#
+#  Write the configuration information to the log files.
+#
+getConfigEnv >> ${LOG_PROC}
+getConfigEnv -e >> ${LOG_DIAG}
+
+#
+#  Start a new job stream and get the job stream key.
+#
+echo "Start a new job stream" >> ${LOG_PROC}
+JOBKEY=`${JOBSTART_CSH} ${RADAR_DBSCHEMADIR} ${JOBSTREAM}`
+if [ $? -ne 0 ]
+then
+    echo "Could not start a new job stream for this load" >> ${LOG_PROC}
+    postload
+    exit 1
+fi
+echo "JOBKEY=${JOBKEY}" >> ${LOG_PROC}
+
+}
+
+
+#
+#  Function that performs cleanup tasks for the job stream prior to
+#  termination.
+#
+postload ()
+{
+    #
+    #  End the job stream if a new job key was successfully obtained.
+    #  The STAT variable will contain the return status from the data
+    #  provider loader or the clone loader.
+    #
+    if [ ${JOBKEY} -gt 0 ]
+    then
+	echo "End the job stream" >> ${LOG_PROC}
+	${JOBEND_CSH} ${RADAR_DBSCHEMADIR} ${JOBKEY} ${STAT}
+    fi
+    #
+    #  End the log files.
+    #
+    stopLog ${LOG_PROC} ${LOG_DIAG} ${LOG_CUR} ${LOG_VAL} | tee -a ${LOG}
+
+    #
+    #  Mail the logs to the support staff.
+    #
+    if [ "${MAIL_LOG_PROC}" != "" ]
+    then
+	mailLog ${MAIL_LOG_PROC} "TIGR Load - Process Summary Log" ${LOG_PROC} | tee -a ${LOG}
+    fi
+
+    if [ "${MAIL_LOG_CUR}" != "" ]
+    then
+	mailLog ${MAIL_LOG_CUR} "TIGR Load - Curator Summary Log" ${LOG_CUR} | tee -a ${LOG}
+    fi
 }
 
 
