@@ -144,7 +144,7 @@ if not foundLocalDir:
 # only print out the files that were logged on the current date
 
 results = db.sql('select fileName, fileSize from APP_FilesMirrored ' + \
-	'where createdBy = "%s" ' % (unixLogin) + \
+	'where fileType = "%s" ' % (fileType) + \
 	'and convert(char(10), creation_date, 101) = "%s" ' % (cdate) + \
 	'order by _File_key', 'auto')
 for r in results:
@@ -153,6 +153,9 @@ for r in results:
 sys.exit(0)
 
 # $Log$
+# Revision 1.7  2004/10/12 17:20:52  lec
+# only print out files logged on current date
+#
 # Revision 1.6  2004/06/04 16:23:48  lec
 # fix print
 #
