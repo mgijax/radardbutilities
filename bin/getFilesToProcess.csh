@@ -17,10 +17,10 @@
 #
 #	RADAR DB Schema Path	(ex. /usr/local/mgi/dbutils/radar/radardbschema)
 #	Job Stream Name 	(ex. genbank_load)
-#	File Types		(ex. GenBank)
+#	File Types		(ex. GenBank, if multiple file types, "GenBank RefSeq")
 #	Max File Size		in bytes, the maximum file size of files to process
 #			        this parameter is optional
-#				(ex. 100000)
+#				(ex. 1000000)
 #
 # Outputs:
 #
