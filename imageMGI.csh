@@ -58,23 +58,23 @@
 cd `dirname $0` && source Configuration
 
 setenv LOG      ${DATADIR}/`basename $0`.log
-rm -rf $LOG
-touch $LOG
+rm -rf ${LOG}
+touch ${LOG}
 
 setenv TABLE		IMG_MGI_IMAGE
 setenv DATAFILE		${DATADIR}/IMG_MGI_IMAGE.txt
 setenv HUMANFILE	${DATADIR}/MGI_IMAGE_Human.txt
 
-date >> $LOG
+date >> ${LOG}
 
 ${SCHEMADIR}/table/${TABLE}_truncate.object | tee -a ${LOG}
 ${SCHEMADIR}/index/${TABLE}_drop.object | tee -a ${LOG}
-cat $DBPASSWORDFILE | bcp ${DBNAME}..${TABLE} in ${DATAFILE} -c -t\\t -U$DBUSER >>& ${LOG}
+cat ${DBPASSWORDFILE} | bcp ${DBNAME}..${TABLE} in ${DATAFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
 ${SCHEMADIR}/index/${TABLE}_create.object | tee -a ${LOG}
 
-date >> $LOG
+date >> ${LOG}
 
-cat - <<EOSQL | doisql.csh $0 >>& $LOG
+cat - <<EOSQL | doisql.csh $0 >>& ${LOG}
 
 use tempdb
 go
@@ -93,11 +93,11 @@ quit
 
 EOSQL
 
-cat $DBPASSWORDFILE | bcp tempdb..MGI_IMAGE_Human in ${HUMANFILE} -c -t\\t -U$DBUSER >>& ${LOG}
+cat ${DBPASSWORDFILE} | bcp tempdb..MGI_IMAGE_Human in ${HUMANFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
 
-date >> $LOG
+date >> ${LOG}
 
-cat - <<EOSQL | doisql.csh $0 >>& $LOG
+cat - <<EOSQL | doisql.csh $0 >>& ${LOG}
 
 use ${DBNAME}
 go
@@ -113,7 +113,7 @@ quit
 
 EOSQL
 
-cat - <<EOSQL | doisql.csh $0 >>& $LOG
+cat - <<EOSQL | doisql.csh $0 >>& ${LOG}
 
 use tempdb
 go
@@ -128,4 +128,4 @@ quit
 
 EOSQL
 
-date >> $LOG
+date >> ${LOG}

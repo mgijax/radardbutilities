@@ -46,16 +46,16 @@
 cd `dirname $0` && source Configuration
 
 setenv LOG      ${DATADIR}/`basename $0`.log
-rm -rf $LOG
-touch $LOG
+rm -rf ${LOG}
+touch ${LOG}
 
 setenv TABLE	NIA_Parent_Daughter_Clones
 setenv DATAFILE1	/data/downloads/clone_sets/NIA/NIA-CloneSets-DaughterClone.txt
 setenv DATAFILE2	/data/downloads/clone_sets/NIA/NIA-CloneSets-ParentClone.txt
 
-date >> $LOG
+date >> ${LOG}
 
-cat - <<EOSQL | doisql.csh $0 >>& $LOG
+cat - <<EOSQL | doisql.csh $0 >>& ${LOG}
 
 use tempdb
 go
@@ -90,13 +90,13 @@ quit
 
 EOSQL
 
-cat $DBPASSWORDFILE | bcp tempdb..NIA_Daughter in ${DATAFILE1} -c -t\\t -U$DBUSER >>& ${LOG}
-cat $DBPASSWORDFILE | bcp tempdb..NIA_Parent in ${DATAFILE2} -c -t\\t -U$DBUSER >>& ${LOG}
+cat ${DBPASSWORDFILE} | bcp tempdb..NIA_Daughter in ${DATAFILE1} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
+cat ${DBPASSWORDFILE} | bcp tempdb..NIA_Parent in ${DATAFILE2} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
 
 ${SCHEMADIR}/table/${TABLE}_truncate.object | tee -a ${LOG}
 ${SCHEMADIR}/index/${TABLE}_drop.object | tee -a ${LOG}
 
-cat - <<EOSQL | doisql.csh $0 >>& $LOG
+cat - <<EOSQL | doisql.csh $0 >>& ${LOG}
 
 use ${DBNAME}
 go
@@ -116,7 +116,7 @@ EOSQL
 
 ${SCHEMADIR}/index/${TABLE}_create.object | tee -a ${LOG}
 
-cat - <<EOSQL | doisql.csh $0 >>& $LOG
+cat - <<EOSQL | doisql.csh $0 >>& ${LOG}
 
 use tempdb
 go
@@ -134,5 +134,5 @@ quit
 
 EOSQL
 
-date >> $LOG
+date >> ${LOG}
 
