@@ -112,14 +112,14 @@ for line in pkgFile.readlines():
         idx = string.find(line[:-1], local_dir_str)
         if idx >= 0:
 	    foundLocalDir = 1
-	    local_dir = line[len(local_dir_str) + 1:-1]
+	    local_dir = line[idx + len(local_dir_str):-1]
 	    os.chdir(local_dir)
 
 	    # find each file
 	    for f in os.listdir(local_dir):
 
 		# ignore files that start with a dot
-		if f[0] != '.':
+		if os.path.isfile(f) and f[0] != '.':
 		    localtime = time.localtime(os.stat(f)[8])
 		    fileTimeStamp = '%s/%s/%s %s:%s' \
 			% (localtime[1], localtime[2], localtime[0], localtime[3], localtime[4])
@@ -139,6 +139,9 @@ if not foundLocalDir:
 sys.exit(0)
 
 # $Log$
+# Revision 1.3  2004/04/29 18:14:51  lec
+# JSAM
+#
 # Revision 1.2  2004/04/29 16:37:31  lec
 # JSAM
 #
