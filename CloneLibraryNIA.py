@@ -49,7 +49,7 @@ cmd.append('select count(*) "count" ' + \
 # Select all clone libraries from the NIA_Parent_Daughter_Clones table
 # that don't already exist in the MGI_CloneLibrary table.
 #
-cmd.append('select "NIA" "cloneSet", ' + \
+cmd.append('select distinct "NIA" "cloneSet", ' + \
                   'n.cloneLibrary "badName", n.cloneLibrary "goodName" ' + \
            'from NIA_Parent_Daughter_Clones n ' + \
            'where not exists ' + \
