@@ -28,6 +28,7 @@
 #    DBPASSWORDFILE
 #    JOBSTREAMKEY
 #    FILENAME
+#    FILETYPE
 #
 # Inputs:
 #
@@ -55,6 +56,9 @@
 # 04/29/2004 lec
 #	- JSAM; created
 #
+# 12/06/2004 lec
+#	- Added FILETYPE
+#
 
 import sys
 import os
@@ -72,14 +76,19 @@ passwordFileName = os.environ['DBPASSWORDFILE']
 password = string.strip(open(passwordFileName, 'r').readline())
 jobStreamKey = os.environ['JOBSTREAMKEY']
 fileName = os.environ['FILENAME']
+fileType = os.environ['FILETYPE']
 
 # Initialize db.py DBMS parameters
 db.set_sqlLogin(user, password, server, database)
  
 # Log the processed file
-db.sql('exec APP_logProcessedFile %s, "%s"' % (jobStreamKey, fileName), None)
+db.sql('exec APP_logProcessedFile %s, "%s", "%s"' % (jobStreamKey,
+       fileName, fileType), None)
 
 # $Log$
+# Revision 1.2  2004/04/29 18:47:43  lec
+# JSAM
+#
 # Revision 1.1  2004/04/29 18:34:38  lec
 # JSAM
 #

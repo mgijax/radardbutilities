@@ -18,6 +18,7 @@
 #	RADAR DB Schema Path (ex. /usr/local/mgi/dbutils/radar/radardbschema)
 #	Job Stream Key
 #	File Name
+#	File Type
 #
 # Outputs:
 #
@@ -26,12 +27,15 @@
 #
 # Usage:
 #
-#	logProcessedFile.csh RDRDBSchemaPath JobStreamKey FileName
+#	logProcessedFile.csh RDRDBSchemaPath JobStreamKey FileName FileType
 #
 # Modification History
 #
 # 04/29/2004 lec
 #	- JSAM; created
+#
+# 12/06/2004 dbm
+#	- Added FileType
 #
 
 cd `dirname $0`
@@ -40,13 +44,14 @@ cd `dirname $0`
 #  Verify the argument(s) to the shell script.
 #
 
-if  ( ${#argv} != 3 ) then
-    echo "Usage: $0  RDRDBSchemaPath JobStreamKey FileName"
+if  ( ${#argv} != 4 ) then
+    echo "Usage: $0  RDRDBSchemaPath JobStreamKey FileName FileType"
     exit 1
 else
     setenv RDRDBSCHEMAPATH $1
     setenv JOBSTREAMKEY $2
     setenv FILENAME $3
+    setenv FILETYPE $4
 endif
 
 if ( ! -e ${RDRDBSCHEMAPATH}/Configuration ) then
@@ -58,7 +63,8 @@ endif
 
 source ${RDRDBSCHEMAPATH}/Configuration
 
-# uses DBSERVER, DBNAME, DBUSER, DBPASSWORDFILE, JOBSTREAMKEY, FILENAME env variables
+# uses DBSERVER, DBNAME, DBUSER, DBPASSWORDFILE, JOBSTREAMKEY,
+# FILENAME and FILETYPE env variables
 ./logProcessedFile.py
 
 # if status != 0, then exit with return code 1
