@@ -124,9 +124,12 @@ for line in pkgFile.readlines():
 		    fileTimeStamp = '%s/%s/%s %s:%s' \
 			% (localtime[1], localtime[2], localtime[0], localtime[3], localtime[4])
 
+		    fileSize = os.stat(f)[6]
+		    print f, str(fileSize)
+
 		    # log the file to RADAR
-		    db.sql('exec APP_logMirroredFile "%s", "%s", "%s", "%s"' 
-			% (fileType, os.path.join(local_dir, f), fileTimeStamp, unixLogin), None)
+		    db.sql('exec APP_logMirroredFile "%s", "%s", %s, "%s", "%s"' 
+			% (fileType, os.path.join(local_dir, f), fileSize, fileTimeStamp, unixLogin), None)
 
 if not foundPackage:
     print 'Could not find package: "%s"' (pkg)
@@ -139,6 +142,9 @@ if not foundLocalDir:
 sys.exit(0)
 
 # $Log$
+# Revision 1.4  2004/04/30 11:43:43  lec
+# JSAM
+#
 # Revision 1.3  2004/04/29 18:14:51  lec
 # JSAM
 #
