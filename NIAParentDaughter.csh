@@ -62,13 +62,13 @@ go
 
 create table tempdb..NIA_Daughter
 (
-  origin     varchar(5) not null,
-  daughterID varchar(30) not null,
-  parentID   varchar(30) not null,
-  unknown    varchar(5) not null,
-  organism   varchar(5) not null,
-  cloneSet   varchar(30) not null,
-  seqIDs     varchar(60) not null
+  origin       varchar(5) not null,
+  daughterID   varchar(30) not null,
+  parentID     varchar(30) not null,
+  imageID      varchar(5) not null,
+  libraryID    varchar(5) not null,
+  libraryName  varchar(30) not null,
+  seqIDs       varchar(60) not null
 )
 go
 
@@ -76,9 +76,9 @@ create table tempdb..NIA_Parent
 (
   origin         varchar(5) not null,
   parentID       varchar(30) not null,
-  unknown1       varchar(10) not null,
-  unknown2       varchar(10) not null,
-  cloneLibrary   varchar(255) not null,
+  imageID        varchar(10) not null,
+  libraryID      varchar(10) not null,
+  libraryName    varchar(255) not null,
   seqIDs         varchar(60) not null
 )
 go
@@ -102,7 +102,7 @@ use ${DBNAME}
 go
 
 insert into ${TABLE}
-select d.parentID, d.daughterID, d.origin, p.cloneLibrary
+select d.parentID, d.daughterID, d.origin, p.libraryName
 from tempdb..NIA_Daughter d, tempdb..NIA_Parent p
 where d.parentID = p.parentID
 go
