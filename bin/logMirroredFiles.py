@@ -132,7 +132,7 @@ for line in pkgFile.readlines():
 			% (fileType, os.path.join(local_dir, f), fileSize, fileTimeStamp, unixLogin), None)
 
 if not foundPackage:
-    print 'Could not find package: "%s"' (pkg)
+    print 'Could not find package: "%s"' % (pkg)
     sys.exit(1)
 
 if not foundLocalDir:
@@ -142,6 +142,9 @@ if not foundLocalDir:
 sys.exit(0)
 
 # $Log$
+# Revision 1.5  2004/04/30 11:51:40  lec
+# JSAM
+#
 # Revision 1.4  2004/04/30 11:43:43  lec
 # JSAM
 #
