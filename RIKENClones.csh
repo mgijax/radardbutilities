@@ -38,8 +38,10 @@
 # Implementation:
 #
 #	1. Truncate RIKEN_FANTOM_Clones table
-#	2. Call RIKENClones.py to create the bcp file of RIKEN clone IDs
-#	3. BCP RIKEN_FANTOM_Clones.bcp into RIKEN_FANTOM_Clones
+#	2. Drop indexes on RIKEN_FANTOM_Clones table
+#	3. Call RIKENClones.py to create the bcp file of RIKEN clone IDs
+#	4. BCP RIKEN_FANTOM_Clones.bcp into RIKEN_FANTOM_Clones
+#	5. Create indexes on RIKEN_FANTOM_Clones table
 #
 # Modification History:
 #
@@ -58,14 +60,15 @@ setenv BCPFILE	${DATADIR}/${TABLE}.bcp
 
 date >> ${LOG}
 
-${SCHEMADIR}/table/${TABLE}_truncate.object >> ${LOG}
+${SCHEMADIR}/table/${TABLE}_truncate.object >>& ${LOG}
+${SCHEMADIR}/index/${TABLE}_drop.object >>& ${LOG}
 
-date >> ${LOG}
-
-RIKENClones.py ${BCPFILE} ${MGD_DBSERVER} ${MGD_DBNAME}
+RIKENClones.py ${BCPFILE} ${MGD_DBSERVER} ${MGD_DBNAME} >>& ${LOG}
 
 if ( $status == 0 ) then
     cat ${DBPASSWORDFILE} | bcp ${DBNAME}..${TABLE} in ${BCPFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
 endif
+
+${SCHEMADIR}/index/${TABLE}_create.object >>& ${LOG}
 
 date >> ${LOG}

@@ -34,7 +34,7 @@ cmd.append('select distinct "NIA" "cloneSet", ' + \
            'from NIA_Parent_Daughter_Clones n ' + \
            'where not exists ' + \
                '(select 1 ' + \
-                'from ' + tempTable + ' t ' + \
+                'from tempdb..' + tempTable + ' t ' + \
                 'where t.badName = n.cloneLibrary)')
 
 #
@@ -42,7 +42,7 @@ cmd.append('select distinct "NIA" "cloneSet", ' + \
 # temp table.
 #
 cmd.append('select count(*) "count" ' + \
-           'from ' + tempTable + ' ' + \
+           'from tempdb..' + tempTable + ' ' + \
            'where badName = "' + nia74Lib + '"')
 
 #
@@ -50,7 +50,7 @@ cmd.append('select count(*) "count" ' + \
 # temp table.
 #
 cmd.append('select count(*) "count" ' + \
-           'from ' + tempTable + ' ' + \
+           'from tempdb..' + tempTable + ' ' + \
            'where badName = "' + nia15Lib + '"')
 
 results = db.sql(cmd, 'auto')

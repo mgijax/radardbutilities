@@ -62,6 +62,7 @@ rm -rf ${LOG}
 touch ${LOG}
 
 setenv TABLE		IMG_MGI_IMAGE
+setenv HUMANTABLE	MGI_IMAGE_HUMAN
 setenv DATAFILE		${DATADIR}/IMG_MGI_IMAGE.txt
 setenv HUMANFILE	${DATADIR}/MGI_IMAGE_Human.txt
 
@@ -69,17 +70,17 @@ date >> ${LOG}
 
 ${SCHEMADIR}/table/${TABLE}_truncate.object >>& ${LOG}
 ${SCHEMADIR}/index/${TABLE}_drop.object >>& ${LOG}
-cat ${DBPASSWORDFILE} | bcp ${DBNAME}..${TABLE} in ${DATAFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
-${SCHEMADIR}/index/${TABLE}_create.object >>& ${LOG}
 
-date >> ${LOG}
+cat ${DBPASSWORDFILE} | bcp ${DBNAME}..${TABLE} in ${DATAFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
+
+${SCHEMADIR}/index/${TABLE}_create.object >>& ${LOG}
 
 cat - <<EOSQL | doisql.csh $0 >>& ${LOG}
 
 use tempdb
 go
 
-create table MGI_IMAGE_Human
+create table ${HUMANTABLE}
 (
   mgiID      varchar(30) not null,
   imageID    varchar(30) not null
@@ -93,32 +94,25 @@ quit
 
 EOSQL
 
-cat ${DBPASSWORDFILE} | bcp tempdb..MGI_IMAGE_Human in ${HUMANFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
-
-date >> ${LOG}
+cat ${DBPASSWORDFILE} | bcp tempdb..${HUMANTABLE} in ${HUMANFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
 
 cat - <<EOSQL | doisql.csh $0 >>& ${LOG}
 
 use ${DBNAME}
 go
 
-delete from ${TABLE}
-where imageID in (select imageID FROM tempdb..MGI_IMAGE_Human)
+delete ${TABLE}
+from ${TABLE} i, tempdb..${HUMANTABLE} h
+where i.imageID = h.imageID
 go
 
 checkpoint
 go
 
-quit
-
-EOSQL
-
-cat - <<EOSQL | doisql.csh $0 >>& ${LOG}
-
 use tempdb
 go
 
-drop table MGI_IMAGE_Human
+drop table ${HUMANTABLE}
 go
 
 checkpoint

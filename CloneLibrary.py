@@ -28,7 +28,7 @@ cmd = []
 # library number.
 #
 cmd.append('select cloneSet, goodName, badName ' + \
-           'from ' + tempTable + ' ' + \
+           'from tempdb..' + tempTable + ' ' + \
            'order by goodName, cloneSet')
 
 results = db.sql(cmd, 'auto')

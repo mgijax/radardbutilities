@@ -64,7 +64,7 @@ setenv LOG      ${LOGDIR}/`basename $0`1.log
 rm -rf ${LOG}
 touch ${LOG}
 
-setenv TEMPTABLE	tempdb..CloneLibraryTemp
+setenv TEMPTABLE	CloneLibraryTemp
 setenv LIBTABLE	MGI_CloneLibrary
 setenv TRANSBCP	${DATADIR}/CloneLibraryTrans.bcp
 setenv NIABCP	${DATADIR}/CloneLibraryNIA.bcp
@@ -95,40 +95,28 @@ quit
 
 EOSQL
 
-date >> ${LOG}
+${SCHEMADIR}/table/${LIBTABLE}_truncate.object >>& ${LOG}
+${SCHEMADIR}/index/${LIBTABLE}_drop.object >>& ${LOG}
 
-${SCHEMADIR}/table/${LIBTABLE}_truncate.object >> ${LOG}
-${SCHEMADIR}/index/${LIBTABLE}_drop.object >> ${LOG}
-
-date >> ${LOG}
-
-CloneLibraryTrans.py ${MGD_DBSERVER} ${MGD_DBNAME} ${TRANSBCP} >> ${LOG}
+CloneLibraryTrans.py ${MGD_DBSERVER} ${MGD_DBNAME} ${TRANSBCP} >>& ${LOG}
 
 if ( $status == 0 ) then
-    cat ${DBPASSWORDFILE} | bcp ${TEMPTABLE} in ${TRANSBCP} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
+    cat ${DBPASSWORDFILE} | bcp tempdb..${TEMPTABLE} in ${TRANSBCP} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
 endif
 
-date >> ${LOG}
-
-CloneLibraryNIA.py ${DBSERVER} ${DBNAME} ${TEMPTABLE} ${NIABCP} >> ${LOG}
+CloneLibraryNIA.py ${DBSERVER} ${DBNAME} ${TEMPTABLE} ${NIABCP} >>& ${LOG}
 
 if ( $status == 0 ) then
-    cat ${DBPASSWORDFILE} | bcp ${TEMPTABLE} in ${NIABCP} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
+    cat ${DBPASSWORDFILE} | bcp tempdb..${TEMPTABLE} in ${NIABCP} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
 endif
 
-date >> ${LOG}
-
-CloneLibrary.py ${DBSERVER} ${DBNAME} ${TEMPTABLE} ${LIBBCP} >> ${LOG}
+CloneLibrary.py ${DBSERVER} ${DBNAME} ${TEMPTABLE} ${LIBBCP} >>& ${LOG}
 
 if ( $status == 0 ) then
     cat ${DBPASSWORDFILE} | bcp ${DBNAME}..${LIBTABLE} in ${LIBBCP} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
 endif
 
-date >> ${LOG}
-
-${SCHEMADIR}/index/${LIBTABLE}_create.object >> ${LOG}
-
-date >> ${LOG}
+${SCHEMADIR}/index/${LIBTABLE}_create.object >>& ${LOG}
 
 cat - <<EOSQL | doisql.csh $0 >>& ${LOG}
 
