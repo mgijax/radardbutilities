@@ -125,7 +125,7 @@ for line in pkgFile.readlines():
 			% (localtime[1], localtime[2], localtime[0], localtime[3], localtime[4])
 
 		    # log the file to RADAR
-		    db.sql("exec APP_logMirroredFiles '%s', '%s', '%s', '%s'" 
+		    db.sql('exec APP_logMirroredFile "%s", "%s", "%s", "%s"' 
 			% (fileType, os.path.join(local_dir, f), fileTimeStamp, unixLogin), None)
 
 if not foundPackage:
@@ -139,6 +139,9 @@ if not foundLocalDir:
 sys.exit(0)
 
 # $Log$
+# Revision 1.2  2004/04/29 16:37:31  lec
+# JSAM
+#
 # Revision 1.1  2004/04/29 15:29:22  lec
 # JSAM
 #
