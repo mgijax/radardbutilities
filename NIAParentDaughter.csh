@@ -27,7 +27,7 @@
 #
 # Outputs:
 #
-#	NIAParentDaughter.log
+#	logs/NIAParentDaughter.csh1.log
 #
 # Exit Codes:
 #
@@ -45,7 +45,7 @@
 
 cd `dirname $0` && source Configuration
 
-setenv LOG      ${DATADIR}/`basename $0`.log
+setenv LOG      ${LOGDIR}/`basename $0`1.log
 rm -rf ${LOG}
 touch ${LOG}
 

@@ -27,7 +27,7 @@
 #
 # Outputs:
 #
-#	data/imageMGI.csh.log
+#	logs/imageMGI.csh1.log
 #
 # Exit Codes:
 #
@@ -57,7 +57,7 @@
 
 cd `dirname $0` && source Configuration
 
-setenv LOG      ${DATADIR}/`basename $0`.log
+setenv LOG      ${LOGDIR}/`basename $0`1.log
 rm -rf ${LOG}
 touch ${LOG}
 
@@ -67,10 +67,10 @@ setenv HUMANFILE	${DATADIR}/MGI_IMAGE_Human.txt
 
 date >> ${LOG}
 
-${SCHEMADIR}/table/${TABLE}_truncate.object | tee -a ${LOG}
-${SCHEMADIR}/index/${TABLE}_drop.object | tee -a ${LOG}
+${SCHEMADIR}/table/${TABLE}_truncate.object >>& ${LOG}
+${SCHEMADIR}/index/${TABLE}_drop.object >>& ${LOG}
 cat ${DBPASSWORDFILE} | bcp ${DBNAME}..${TABLE} in ${DATAFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
-${SCHEMADIR}/index/${TABLE}_create.object | tee -a ${LOG}
+${SCHEMADIR}/index/${TABLE}_create.object >>& ${LOG}
 
 date >> ${LOG}
 
