@@ -669,7 +669,7 @@ dlaInstall ()
   if [ "${OUTPUTDIR}" = "" ]
   then
       echo "Environment variable OUTPUTDIR has not been defined."
-	echo "It should be set to the directory where report files are created."
+	echo "It should be set to the directory where bcp files are created."
 	install_failed
   fi
   
@@ -714,6 +714,9 @@ dlaInstall ()
 }
 
 #  $Log$
+#  Revision 1.4  2004/04/16 17:39:17  mbw
+#  added an OUTPUTDIR to the directories created in the install function from DLAfunctions.sh
+#
 #  Revision 1.3  2004/04/16 17:07:21  mbw
 #  added new functions to support common dla installation procedures
 #
