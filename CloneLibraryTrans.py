@@ -5,14 +5,14 @@ import db
 import string
 import os
 
-bcpFile=sys.argv[1]
-mgdServer=sys.argv[2]
-mgdDB=sys.argv[3]
-
 
 #
 # Main
 #
+
+mgdServer=sys.argv[1]
+mgdDB=sys.argv[2]
+bcpFile=sys.argv[3]
 
 fp = open(bcpFile,"w")
 
@@ -25,9 +25,8 @@ cmd = []
 # Select all clone libraries defined in the MGI_Translation table and
 # load them into a temp table.
 #
-cmd.append('select s.name "cloneSet", p._Source_key, ' + \
-                  't.badName "badName", p.name "goodName" ' + \
-           'into #tempCloneLibTrans ' + \
+cmd.append('select distinct s.name "cloneSet", ' + \
+                  'p.name "goodName", t.badName "badName" ' + \
            'from PRB_Source p, ' + \
                 'MGI_Translation t, ' + \
                 'MGI_TranslationType tt, ' + \
@@ -44,9 +43,8 @@ cmd.append('select s.name "cloneSet", p._Source_key, ' + \
 # Select all clone libraries not defined in the MGI_Translation table and
 # add them to the temp table.
 #
-cmd.append('insert into #tempCloneLibTrans ' + \
-           'select s.name "cloneSet", p._Source_key, ' + \
-                  'p.name "badName", p.name "goodName" ' + \
+cmd.append('select distinct s.name "cloneSet", ' + \
+                  'p.name "goodName", p.name "badName" ' + \
            'from PRB_Source p, ' + \
                 'MGI_Set s, ' + \
                 'MGI_SetMember sm ' + \
@@ -60,35 +58,28 @@ cmd.append('insert into #tempCloneLibTrans ' + \
                  'sm._Set_key = s._Set_key and ' + \
                  's._MGIType_key = 5')
 
-#
-# Select all the clone libraries to write to the bcp file.
-#
-cmd.append('select cloneSet, badName, goodName ' + \
-           'from #tempCloneLibTrans ' + \
-           'order by cloneSet, badName, goodName')
-
 results = db.sql(cmd, 'auto')
 
-#
-# Initialize the library key.
-#
-libraryKey = 0
+count = 0
 
 #
-# Write each clone library to the bcp file with a unique library key.
+# Write each clone library to the bcp file.
 #
-for r in results[2]:
-    libraryKey = libraryKey + 1
-    fp.write(str(libraryKey) + '\t' + r['cloneSet'] + '\t' + \
-        r['badName'] + '\t' + r['goodName'] + '\n')
+for r in results[0]:
+    fp.write(r['cloneSet'] + '\t' + r['goodName'] + '\t' + r['badName'] + '\n')
+    count = count + 1
+
+for r in results[1]:
+    fp.write(r['cloneSet'] + '\t' + r['goodName'] + '\t' + r['badName'] + '\n')
+    count = count + 1
 
 fp.close()
 
 #
-# If any library keys were used, exit with a 0 to let the caller know
+# If any libraries were found, exit with a 0 to let the caller know
 # there is something to load.
 #
-if libraryKey > 0:
+if count > 0:
     sys.exit(0)
 else:
     sys.exit(1)
