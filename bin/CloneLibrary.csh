@@ -23,8 +23,6 @@
 #
 # Inputs:
 #
-#	data/CloneLibraryTrans.bcp (generated at runtime)
-#	data/CloneLibraryNIA.bcp (generated at runtime)
 #	data/MGI_CloneLibrary.bcp (generated at runtime)
 #
 # Outputs:
@@ -40,22 +38,22 @@
 # Implementation:
 #
 #	1. Create the temp table tempdb..CloneLibraryTemp
-#	2. Call CloneLibraryTrans.py to create the first bcp file of
-#          clone libraries that have translations
-#	3. Load the first bcp file into the temp table
-#	4. Call CloneLibraryNIA.py to create the second bcp file of
-#          additional NIA clone libraries from the
-#          NIA_Parent_Daughter_Clones table
-#	5. Load the second bcp file into the temp table
-#	6. Call CloneLibrary.py to create the third bcp file of all
-#          clone libraries from the temp table (adding the library number)
-#	7. Load the third bcp file into the MGI_CloneLibrary table
-#	8. Drop the temp table tempdb..CloneLibraryTemp
+#       2. Truncate the MGI_CloneLibrary table
+#       3. Drop the indexes on the MGI_CloneLibrary table
+#	4. Call CloneLibrary.py to load the clone libraries into the
+#          temp table and create a bcpfile for the MGI_CloneLibrary
+#          table (adding the library number)
+#	5. Load the bcp file into the MGI_CloneLibrary table
+#       6. Create the indexes on the MGI_CloneLibrary table
+#	7. Drop the temp table tempdb..CloneLibraryTemp
 #
 # Modification History:
 #
 # 02/23/2004	dbm
 #	- new
+#
+# 05/19/2004	dbm
+#	- merged 3 Python scripts into one
 #
 
 cd `dirname $0` && source ../Configuration
@@ -66,9 +64,7 @@ touch ${LOG}
 
 setenv TEMPTABLE	CloneLibraryTemp
 setenv LIBTABLE	MGI_CloneLibrary
-setenv TRANSBCP	${DATADIR}/CloneLibraryTrans.bcp
-setenv NIABCP	${DATADIR}/CloneLibraryNIA.bcp
-setenv LIBBCP	${DATADIR}/${LIBTABLE}.bcp
+setenv BCPFILE	${DATADIR}/${LIBTABLE}.bcp
 
 date >> ${LOG}
 
@@ -85,7 +81,7 @@ create table ${TEMPTABLE}
 )
 go
 
-grant select on ${TEMPTABLE} to public
+grant all on ${TEMPTABLE} to public
 go
 
 checkpoint
@@ -98,22 +94,10 @@ EOSQL
 ${SCHEMADIR}/table/${LIBTABLE}_truncate.object >>& ${LOG}
 ${SCHEMADIR}/index/${LIBTABLE}_drop.object >>& ${LOG}
 
-CloneLibraryTrans.py ${MGD_DBSERVER} ${MGD_DBNAME} ${TRANSBCP} >>& ${LOG}
+CloneLibrary.py  ${MGD_DBSERVER} ${MGD_DBNAME} ${DBSERVER} ${DBNAME} ${TEMPTABLE} ${BCPFILE} >>& ${LOG}
 
 if ( $status == 0 ) then
-    cat ${DBPASSWORDFILE} | bcp tempdb..${TEMPTABLE} in ${TRANSBCP} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
-endif
-
-CloneLibraryNIA.py ${DBSERVER} ${DBNAME} ${TEMPTABLE} ${NIABCP} >>& ${LOG}
-
-if ( $status == 0 ) then
-    cat ${DBPASSWORDFILE} | bcp tempdb..${TEMPTABLE} in ${NIABCP} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
-endif
-
-CloneLibrary.py ${DBSERVER} ${DBNAME} ${TEMPTABLE} ${LIBBCP} >>& ${LOG}
-
-if ( $status == 0 ) then
-    cat ${DBPASSWORDFILE} | bcp ${DBNAME}..${LIBTABLE} in ${LIBBCP} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
+    cat ${DBPASSWORDFILE} | bcp ${DBNAME}..${LIBTABLE} in ${BCPFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
 endif
 
 ${SCHEMADIR}/index/${LIBTABLE}_create.object >>& ${LOG}
