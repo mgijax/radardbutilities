@@ -18,6 +18,11 @@
 #
 #   startJobStream.csh RADARDBSchemaPath JobStreamName
 #
+# History
+#
+# 03/28/2006 lec
+#	- TR 6340; added check of startJobStream.py status
+#
 
 setenv DBSCHEMAPATH $1
 setenv JOBSTREAMNAME "$2"
@@ -36,6 +41,11 @@ source ${DBSCHEMAPATH}/Configuration
 
 cd `dirname $0`
 set jobStreamKey=`./startJobStream.py`
+
+if ( $status ) then
+	exit 1
+endif
+
 echo $jobStreamKey
 
 # if job stream key is -1, then exit with return code 1
