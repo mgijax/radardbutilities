@@ -1,7 +1,5 @@
 #!/usr/local/bin/python
 
-# $Header$
-
 #
 # Program:
 #
@@ -22,10 +20,10 @@
 #
 # Envvars:
 #
-#    DBSERVER
-#    DBNAME
-#    DBUSER
-#    DBPASSWORDFILE
+#    RADAR_DBSERVER
+#    RADAR_DBNAME
+#    RADAR_DBUSER
+#    RADAR_DBPASSWORDFILE
 #    JOBSTREAMNAME
 #    FILETYPES
 #    MAXFILESIZE
@@ -50,6 +48,12 @@
 #
 # Implementation:
 #
+# Modification History:
+#
+# 04/20/2006    lec
+#       - MGI 3.5; DBSERVER => RADAR_DBSERVER, DBNAME => RADAR_DBNAME,
+#         DBUSER => RADAR_DBUSER, DBPASSWORDFILE => RADAR_DBPASSWORDFILE
+#
 
 import sys
 import os
@@ -60,10 +64,10 @@ import db
 # Main
 #
 
-server = os.environ['DBSERVER']
-database = os.environ['DBNAME']
-user = os.environ['DBUSER']
-passwordFileName = os.environ['DBPASSWORDFILE']
+server = os.environ['RADAR_DBSERVER']
+database = os.environ['RADAR_DBNAME']
+user = os.environ['RADAR_DBUSER']
+passwordFileName = os.environ['RADAR_DBPASSWORDFILE']
 password = string.strip(open(passwordFileName, 'r').readline())
 jobStreamName = os.environ['JOBSTREAMNAME']
 fileTypes = os.environ['FILETYPES']
@@ -82,8 +86,3 @@ for f in string.split(fileTypes, ' '):
 # print to stdout so wrapper can grab it
 print string.join(filesToProcess, ' ')
 
-# $Log$
-# Revision 1.1  2004/04/29 16:55:24  lec
-# JSAM
-#
-#

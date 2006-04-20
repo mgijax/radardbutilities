@@ -1,7 +1,5 @@
 #!/usr/local/bin/python
 
-# $Header$
-
 #
 # Program:
 #
@@ -22,10 +20,10 @@
 #
 # Envvars:
 #
-#    DBSERVER
-#    DBNAME
-#    DBUSER
-#    DBPASSWORDFILE
+#    RADAR_DBSERVER
+#    RADAR_DBNAME
+#    RADAR_DBUSER
+#    RADAR_DBPASSWORDFILE
 #    JOBSTREAMKEY
 #    FILENAME
 #    FILETYPE
@@ -53,6 +51,10 @@
 #
 # Modification History:
 #
+# 04/20/2006    lec
+#       - MGI 3.5; DBSERVER => RADAR_DBSERVER, DBNAME => RADAR_DBNAME,
+#         DBUSER => RADAR_DBUSER, DBPASSWORDFILE => RADAR_DBPASSWORDFILE
+#
 # 04/29/2004 lec
 #	- JSAM; created
 #
@@ -69,10 +71,10 @@ import db
 # Main
 #
 
-server = os.environ['DBSERVER']
-database = os.environ['DBNAME']
-user = os.environ['DBUSER']
-passwordFileName = os.environ['DBPASSWORDFILE']
+server = os.environ['RADAR_DBSERVER']
+database = os.environ['RADAR_DBNAME']
+user = os.environ['RADAR_DBUSER']
+passwordFileName = os.environ['RADAR_DBPASSWORDFILE']
 password = string.strip(open(passwordFileName, 'r').readline())
 jobStreamKey = os.environ['JOBSTREAMKEY']
 fileName = os.environ['FILENAME']
@@ -82,14 +84,5 @@ fileType = os.environ['FILETYPE']
 db.set_sqlLogin(user, password, server, database)
  
 # Log the processed file
-db.sql('exec APP_logProcessedFile %s, "%s", "%s"' % (jobStreamKey,
-       fileName, fileType), None)
+db.sql('exec APP_logProcessedFile %s, "%s", "%s"' % (jobStreamKey, fileName, fileType), None)
 
-# $Log$
-# Revision 1.2  2004/04/29 18:47:43  lec
-# JSAM
-#
-# Revision 1.1  2004/04/29 18:34:38  lec
-# JSAM
-#
-#

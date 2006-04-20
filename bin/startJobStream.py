@@ -1,8 +1,5 @@
 #!/usr/local/bin/python
 
-# $Header$
-# $Name$
-
 #
 # Program:
 #
@@ -23,10 +20,10 @@
 #
 # Envvars:
 #
-#    DBSERVER
-#    DBNAME
-#    DBUSER
-#    DBPASSWORDFILE
+#    RADAR_DBSERVER
+#    RADAR_DBNAME
+#    RADAR_DBUSER
+#    RADAR_DBPASSWORDFILE
 #    JOBSTREAMNAME
 #    USER
 #
@@ -50,6 +47,13 @@
 #
 # Implementation:
 #
+# Modification History:
+#
+# 04/20/2006    lec
+#       - MGI 3.5; DBSERVER => RADAR_DBSERVER, DBNAME => RADAR_DBNAME,
+#         DBUSER => RADAR_DBUSER, DBPASSWORDFILE => RADAR_DBPASSWORDFILE
+#
+#
 
 import sys
 import os
@@ -60,10 +64,10 @@ import db
 # Main
 #
 
-server = os.environ['DBSERVER']
-database = os.environ['DBNAME']
-user = os.environ['DBUSER']
-passwordFileName = os.environ['DBPASSWORDFILE']
+server = os.environ['RADAR_DBSERVER']
+database = os.environ['RADAR_DBNAME']
+user = os.environ['RADAR_DBUSER']
+passwordFileName = os.environ['RADAR_DBPASSWORDFILE']
 password = string.strip(open(passwordFileName, 'r').readline())
 jobStreamName = os.environ['JOBSTREAMNAME']
 unixLogin = os.environ['USER']
@@ -78,16 +82,3 @@ jobStreamKey = int(results[0][''])
 # print to stdout so wrapper can grab it
 print jobStreamKey	
 
-# $Log$
-# Revision 1.1  2004/04/07 19:00:04  lec
-# JSAM; moved over from mgidbutilities
-#
-# Revision 1.3  2003/10/27 13:21:33  lec
-# JSAM
-#
-# Revision 1.2  2003/08/08 12:17:03  lec
-# JSAM
-#
-# Revision 1.1  2003/08/07 15:45:25  lec
-# JSAM
-#

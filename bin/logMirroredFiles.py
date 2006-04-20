@@ -1,7 +1,5 @@
 #!/usr/local/bin/python
 
-# $Header$
-
 #
 # Program:
 #
@@ -22,10 +20,10 @@
 #
 # Envvars:
 #
-#    DBSERVER
-#    DBNAME
-#    DBUSER
-#    DBPASSWORDFILE
+#    RADAR_DBSERVER
+#    RADAR_DBNAME
+#    RADAR_DBUSER
+#    RADAR_DBPASSWORDFILE
 #    MIRRORFTPPKGFILE
 #    MIRRORFTPPKG
 #    LOGFILETYPE
@@ -56,6 +54,10 @@
 #
 # Modification History:
 #
+# 04/20/2006	lec
+#	- MGI 3.5; DBSERVER => RADAR_DBSERVER, DBNAME => RADAR_DBNAME,
+#         DBUSER => RADAR_DBUSER, DBPASSWORDFILE => RADAR_DBPASSWORDFILE
+#
 # 04/29/2004 lec
 #	- JSAM; created
 #
@@ -75,10 +77,10 @@ cdate = mgi_utils.date('%m/%d/%Y')
 # Main
 #
 
-server = os.environ['DBSERVER']
-database = os.environ['DBNAME']
-user = os.environ['DBUSER']
-passwordFileName = os.environ['DBPASSWORDFILE']
+server = os.environ['RADAR_DBSERVER']
+database = os.environ['RADAR_DBNAME']
+user = os.environ['RADAR_DBUSER']
+passwordFileName = os.environ['RADAR_DBPASSWORDFILE']
 password = string.strip(open(passwordFileName, 'r').readline())
 unixLogin = os.environ['USER']
 pkgFileName = os.environ['MIRRORFTPPKGFILE']
@@ -157,28 +159,3 @@ for r in results:
 
 sys.exit(0)
 
-# $Log$
-# Revision 1.8  2004/10/14 16:35:10  lec
-# print out files fix
-#
-# Revision 1.7  2004/10/12 17:20:52  lec
-# only print out files logged on current date
-#
-# Revision 1.6  2004/06/04 16:23:48  lec
-# fix print
-#
-# Revision 1.5  2004/04/30 11:51:40  lec
-# JSAM
-#
-# Revision 1.4  2004/04/30 11:43:43  lec
-# JSAM
-#
-# Revision 1.3  2004/04/29 18:14:51  lec
-# JSAM
-#
-# Revision 1.2  2004/04/29 16:37:31  lec
-# JSAM
-#
-# Revision 1.1  2004/04/29 15:29:22  lec
-# JSAM
-#
