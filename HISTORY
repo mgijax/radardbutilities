@@ -1,3 +1,10 @@
+TAG: radardbutilities-3-5-0-1
+DATE: 04/20/2006
+STAFF: lec
+CHANGES:
+1) MGI 3.5; converted database parameters in bin/*py to RADAR_ versions
+  (DBSERVER, DBNAME, DBUSER, DBPASSWORDFILE: added RADAR_ prefix)
+
 TAG: radardbutilities-3-4-4-1
 DATE: 03/28/2006
 STAFF: lec
