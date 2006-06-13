@@ -8,29 +8,15 @@
 #	ex. 	source Configuration.default
 #
 
-# DB Schema Product
-setenv SCHEMADIR /usr/local/mgi/live/dbutils/radar/radardbschema
+if ( ${?MGICONFIG} == 0 ) then
+	setenv MGICONFIG /usr/local/mgi/live/mgiconfig
+endif
 
-source ${SCHEMADIR}/Configuration
-
-# install directory
-setenv INSTALLDIR /usr/local/mgi/live/dbutils/radardbutilities
-
-# system doc directory
-setenv SYSTEMDOCDIR $INSTALLDIR/system_docs
+source ${MGICONFIG}/master.config.csh
 
 # data directory
-setenv DATADIR $INSTALLDIR/data
+setenv DATADIR ${RADAR_DBUTILS}/data
 
 # log directory
-setenv LOGDIR $INSTALLDIR/logs
+setenv LOGDIR ${RADAR_DBUTILS}/logs
 
-# PATH
-set path = ($path $SYBASE/ASE-12_5/bin $SYBASE/OCS-12_5/bin $INSTALLDIR/bin)
-
-# Python path
-setenv PYTHONPATH /usr/local/mgi/live/lib/python
-
-# MGD database settings
-setenv MGD_DBSERVER PROD_MGI
-setenv MGD_DBNAME mgd
