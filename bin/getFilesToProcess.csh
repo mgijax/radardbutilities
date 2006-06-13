@@ -66,7 +66,8 @@ endif
 source ${RDRDBSCHEMAPATH}/Configuration
 
 # retrieve files to process based on Job Stream and File Types
-# uses DBSERVER, DBNAME, DBUSER, DBPASSWORDFILE, JOBSTREAMNAME, FILETYPES, MAXFILESIZE env variables
+# uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE, 
+# JOBSTREAMNAME, FILETYPES, MAXFILESIZE env variables
 cd `dirname $0`
 set filesToProcess=`./getFilesToProcess.py`
 echo $filesToProcess

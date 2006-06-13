@@ -1,8 +1,5 @@
 #!/bin/csh -f
 
-# $Header$
-# $Name$
-
 #
 # Program: CloneLibrary.csh
 #
@@ -91,16 +88,16 @@ quit
 
 EOSQL
 
-${SCHEMADIR}/table/${LIBTABLE}_truncate.object >>& ${LOG}
-${SCHEMADIR}/index/${LIBTABLE}_drop.object >>& ${LOG}
+${RADAR_DBSCHEMADIR}/table/${LIBTABLE}_truncate.object >>& ${LOG}
+${RADAR_DBSCHEMADIR}/index/${LIBTABLE}_drop.object >>& ${LOG}
 
-CloneLibrary.py  ${MGD_DBSERVER} ${MGD_DBNAME} ${DBSERVER} ${DBNAME} ${TEMPTABLE} ${BCPFILE} >>& ${LOG}
+CloneLibrary.py  ${MGD_DBSERVER} ${MGD_DBNAME} ${RADAR_DBSERVER} ${RADAR_DBNAME} ${TEMPTABLE} ${BCPFILE} >>& ${LOG}
 
 if ( $status == 0 ) then
-    cat ${DBPASSWORDFILE} | bcp ${DBNAME}..${LIBTABLE} in ${BCPFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
+    cat ${RADAR_DBPASSWORDFILE} | bcp ${RADAR_DBNAME}..${LIBTABLE} in ${BCPFILE} -c -t\\t -S${RADAR_DBSERVER} -U${RADAR_DBUSER} >>& ${LOG}
 endif
 
-${SCHEMADIR}/index/${LIBTABLE}_create.object >>& ${LOG}
+${RADAR_DBSCHEMADIR}/index/${LIBTABLE}_create.object >>& ${LOG}
 
 cat - <<EOSQL | doisql.csh $0 >>& ${LOG}
 

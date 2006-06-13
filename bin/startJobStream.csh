@@ -1,4 +1,5 @@
 #!/bin/csh -f -x
+
 #
 # Program:
 #
@@ -37,7 +38,7 @@ endif
 source ${DBSCHEMAPATH}/Configuration
 
 # create the job stream and echo the job stream key
-# uses DBSERVER, DBNAME, DBUSER, DBPASSWORDFILE and JOBSTREAMNAME env variables
+# uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE and JOBSTREAMNAME env variables
 
 cd `dirname $0`
 set jobStreamKey=`./startJobStream.py`
