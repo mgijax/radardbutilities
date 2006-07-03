@@ -1,9 +1,0 @@
-#!/bin/csh -f -x
-
-#
-# Install script
-#
-# Usage:  Install
-
-cd `dirname $0` && source ./Configuration
-
