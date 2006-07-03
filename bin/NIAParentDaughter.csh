@@ -1,8 +1,5 @@
 #!/bin/csh -f
 
-# $Header$
-# $Name$
-
 #
 # Program: NIAParentDaughter.csh
 #
@@ -63,11 +60,11 @@ setenv BCPFILE	${DATADIR}/NIA_Parent_Daughter_Clones.txt
 
 date >> ${LOG}
 
-${SCHEMADIR}/table/${TABLE}_truncate.object >>& ${LOG}
-${SCHEMADIR}/index/${TABLE}_drop.object >>& ${LOG}
+${RADAR_DBSCHEMADIR}/table/${TABLE}_truncate.object >>& ${LOG}
+${RADAR_DBSCHEMADIR}/index/${TABLE}_drop.object >>& ${LOG}
 
-cat ${DBPASSWORDFILE} | bcp ${DBNAME}..${TABLE} in ${BCPFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
+cat ${RADAR_DBPASSWORDFILE} | bcp ${RADAR_DBNAME}..${TABLE} in ${BCPFILE} -c -t\\t -S${RADAR_DBSERVER} -U${RADAR_DBUSER} >>& ${LOG}
 
-${SCHEMADIR}/index/${TABLE}_create.object >>& ${LOG}
+${RADAR_DBSCHEMADIR}/index/${TABLE}_create.object >>& ${LOG}
 
 date >> ${LOG}

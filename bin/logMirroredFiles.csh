@@ -1,4 +1,5 @@
 #!/bin/csh -f -x
+
 #
 # Program:
 #
@@ -73,7 +74,8 @@ endif
 source ${RDRDBSCHEMAPATH}/Configuration
 
 # traverse thru the files in the MirrorFTPPackage local_dir and log new ones in RADAR
-# uses DBSERVER, DBNAME, DBUSER, DBPASSWORDFILE, MIRRORFTPPKGFILE, MIRRORFTPPKG, LOGFILETYPE env variables
+# uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE, 
+# MIRRORFTPPKGFILE, MIRRORFTPPKG, LOGFILETYPE env variables
 ./logMirroredFiles.py
 
 # if status != 0, then exit with return code 1

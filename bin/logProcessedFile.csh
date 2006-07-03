@@ -1,4 +1,5 @@
 #!/bin/csh -f -x
+
 #
 # Program:
 #
@@ -63,7 +64,7 @@ endif
 
 source ${RDRDBSCHEMAPATH}/Configuration
 
-# uses DBSERVER, DBNAME, DBUSER, DBPASSWORDFILE, JOBSTREAMKEY,
+# uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE, JOBSTREAMKEY,
 # FILENAME and FILETYPE env variables
 ./logProcessedFile.py
 

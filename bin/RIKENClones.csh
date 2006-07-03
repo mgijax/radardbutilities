@@ -1,8 +1,5 @@
 #!/bin/csh -f
 
-# $Header$
-# $Name$
-
 #
 # Program: RIKENClones.csh
 #
@@ -60,15 +57,15 @@ setenv BCPFILE	${DATADIR}/${TABLE}.bcp
 
 date >> ${LOG}
 
-${SCHEMADIR}/table/${TABLE}_truncate.object >>& ${LOG}
-${SCHEMADIR}/index/${TABLE}_drop.object >>& ${LOG}
+${RADAR_DBSCHEMADIR}/table/${TABLE}_truncate.object >>& ${LOG}
+${RADAR_DBSCHEMADIR}/index/${TABLE}_drop.object >>& ${LOG}
 
 RIKENClones.py ${BCPFILE} ${MGD_DBSERVER} ${MGD_DBNAME} >>& ${LOG}
 
 if ( $status == 0 ) then
-    cat ${DBPASSWORDFILE} | bcp ${DBNAME}..${TABLE} in ${BCPFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
+    cat ${RADAR_DBPASSWORDFILE} | bcp ${RADAR_DBNAME}..${TABLE} in ${BCPFILE} -c -t\\t -S${RADAR_DBSERVER} -U${RADAR_DBUSER} >>& ${LOG}
 endif
 
-${SCHEMADIR}/index/${TABLE}_create.object >>& ${LOG}
+${RADAR_DBSCHEMADIR}/index/${TABLE}_create.object >>& ${LOG}
 
 date >> ${LOG}

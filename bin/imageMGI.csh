@@ -1,8 +1,5 @@
 #!/bin/csh -f
 
-# $Header$
-# $Name$
-
 #
 # Program: imageMGI.csh
 #
@@ -68,12 +65,12 @@ setenv HUMANFILE	${DATADIR}/MGI_IMAGE_Human.txt
 
 date >> ${LOG}
 
-${SCHEMADIR}/table/${TABLE}_truncate.object >>& ${LOG}
-${SCHEMADIR}/index/${TABLE}_drop.object >>& ${LOG}
+${RADAR_DBSCHEMADIR}/table/${TABLE}_truncate.object >>& ${LOG}
+${RADAR_DBSCHEMADIR}/index/${TABLE}_drop.object >>& ${LOG}
 
-cat ${DBPASSWORDFILE} | bcp ${DBNAME}..${TABLE} in ${DATAFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
+cat ${RADAR_DBPASSWORDFILE} | bcp ${RADAR_DBNAME}..${TABLE} in ${DATAFILE} -c -t\\t -S${RADAR_DBSERVER} -U${RADAR_DBUSER} >>& ${LOG}
 
-${SCHEMADIR}/index/${TABLE}_create.object >>& ${LOG}
+${RADAR_DBSCHEMADIR}/index/${TABLE}_create.object >>& ${LOG}
 
 cat - <<EOSQL | doisql.csh $0 >>& ${LOG}
 
@@ -94,11 +91,11 @@ quit
 
 EOSQL
 
-cat ${DBPASSWORDFILE} | bcp tempdb..${HUMANTABLE} in ${HUMANFILE} -c -t\\t -S${DBSERVER} -U${DBUSER} >>& ${LOG}
+cat ${RADAR_DBPASSWORDFILE} | bcp tempdb..${HUMANTABLE} in ${HUMANFILE} -c -t\\t -S${RADAR_DBSERVER} -U${RADAR_DBUSER} >>& ${LOG}
 
 cat - <<EOSQL | doisql.csh $0 >>& ${LOG}
 
-use ${DBNAME}
+use ${RADAR_DBNAME}
 go
 
 delete ${TABLE}
