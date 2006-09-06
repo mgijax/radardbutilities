@@ -65,7 +65,7 @@ setenv BCPFILE	${DATADIR}/${LIBTABLE}.bcp
 
 date >> ${LOG}
 
-cat - <<EOSQL | doisql.csh $0 >>& ${LOG}
+cat - <<EOSQL | doisql.csh ${MGD_DBSERVER} ${MGD_DBNAME} $0 >>& ${LOG}
 
 use tempdb
 go
@@ -91,7 +91,7 @@ EOSQL
 ${RADAR_DBSCHEMADIR}/table/${LIBTABLE}_truncate.object >>& ${LOG}
 ${RADAR_DBSCHEMADIR}/index/${LIBTABLE}_drop.object >>& ${LOG}
 
-CloneLibrary.py  ${MGD_DBSERVER} ${MGD_DBNAME} ${RADAR_DBSERVER} ${RADAR_DBNAME} ${TEMPTABLE} ${BCPFILE} >>& ${LOG}
+./CloneLibrary.py  ${MGD_DBSERVER} ${MGD_DBNAME} ${RADAR_DBSERVER} ${RADAR_DBNAME} ${TEMPTABLE} ${BCPFILE} >>& ${LOG}
 
 if ( $status == 0 ) then
     cat ${RADAR_DBPASSWORDFILE} | bcp ${RADAR_DBNAME}..${LIBTABLE} in ${BCPFILE} -c -t\\t -S${RADAR_DBSERVER} -U${RADAR_DBUSER} >>& ${LOG}
@@ -99,7 +99,7 @@ endif
 
 ${RADAR_DBSCHEMADIR}/index/${LIBTABLE}_create.object >>& ${LOG}
 
-cat - <<EOSQL | doisql.csh $0 >>& ${LOG}
+cat - <<EOSQL | doisql.csh ${MGD_DBSERVER} ${MGD_DBNAME} $0 >>& ${LOG}
 
 use tempdb
 go
