@@ -73,6 +73,7 @@ jobStreamRC = os.environ['JOBSTREAMRETURNCODE']
 
 # Initialize db.py DBMS parameters
 db.set_sqlLogin(user, password, server, database)
+db.set_sqlLogFunction(db.sqlLogAll)
  
 # End the Job Stream 
 cmds = []
