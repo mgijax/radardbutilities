@@ -1,3 +1,9 @@
+TAG: radardbutilities-3-5-4-1
+DATE: 11/06/2007
+STAFF: sc
+CHANGES:
+1) added logFileToProcess.csh and logFileToProcess.py
+
 TAG: radardbutilities-3-5-1-1
 DATE: 09/06/2006
 STAFF: lec
