@@ -70,6 +70,8 @@ cdate = mgi_utils.date('%m/%d/%Y')
 # Main
 #
 
+MAX_INTSIZE = 2147483647
+
 # get database settings from the environment
 server = os.environ['RADAR_DBSERVER']
 database = os.environ['RADAR_DBNAME']
@@ -100,6 +102,8 @@ fileTimeStamp = '%s/%s/%s %s:%s' \
 
 # get the file size to log
 fileSize = os.stat(fileToLog)[6]
+if fileSize > MAX_INTSIZE:
+    fileSize = MAX_INTSIZE
 
 # log the file to RADAR
 db.sql('exec APP_logMirroredFile "%s", "%s", %s, "%s", "%s"' 
