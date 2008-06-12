@@ -1,3 +1,10 @@
+TAG: radardbutilities-4-1-0-1
+DATE: 06/12/2008
+STAFF: dbm
+CHANGES:
+1) Modified logFileToProcess.py and logMirroredFiles.py to use the maximum
+   int value allowed by sybase if the fileSize is greater than that
+
 TAG: radardbutilities-3-5-4-1
 DATE: 11/06/2007
 STAFF: sc
