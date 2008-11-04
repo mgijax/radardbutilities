@@ -19,7 +19,7 @@
 #	RADAR DB Schema Path (ex. /usr/local/mgi/dbutils/radar/radardbschema)
 #	Work File Directory
 #	Output File Directory
-#	Log File Type		(ex. GenBank)
+#	Log File Type		(ex. GenBank_preprocess)
 #
 # Outputs:
 #
