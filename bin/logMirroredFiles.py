@@ -77,8 +77,6 @@ cdate = mgi_utils.date('%m/%d/%Y')
 # Main
 #
 
-MAX_INTSIZE = 2147483647
-
 server = os.environ['RADAR_DBSERVER']
 database = os.environ['RADAR_DBNAME']
 user = os.environ['RADAR_DBUSER']
@@ -130,9 +128,7 @@ for line in pkgFile.readlines():
 		    fileTimeStamp = '%s/%s/%s %s:%s' \
 			% (localtime[1], localtime[2], localtime[0], localtime[3], localtime[4])
 
-		    fileSize = os.stat(f)[6]
-		    if fileSize > MAX_INTSIZE:
-		        fileSize = MAX_INTSIZE
+		    fileSize = os.stat(f)[6] / 1000
 
 		    # don't log lock files or dummy files
 
