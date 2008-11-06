@@ -100,6 +100,8 @@ fileTimeStamp = '%s/%s/%s %s:%s' \
 
 # get the file size to log
 fileSize = os.stat(fileToLog)[6] / 1000
+if fileSize == 0:
+    fileSize = 1
 
 # log the file to RADAR
 db.sql('exec APP_logMirroredFile "%s", "%s", %s, "%s", "%s"' 

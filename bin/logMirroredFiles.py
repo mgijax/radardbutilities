@@ -129,6 +129,8 @@ for line in pkgFile.readlines():
 			% (localtime[1], localtime[2], localtime[0], localtime[3], localtime[4])
 
 		    fileSize = os.stat(f)[6] / 1000
+		    if fileSize == 0:
+			fileSize = 1
 
 		    # don't log lock files or dummy files
 
