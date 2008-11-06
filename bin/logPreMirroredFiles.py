@@ -87,7 +87,6 @@ db.set_sqlLogin(user, password, server, database)
 os.chdir(workDir)
 
 for f in os.listdir(workDir):
-    print f
 
     # ignore files that start with a dot
 
