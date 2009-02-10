@@ -3,7 +3,7 @@
 #
 # Program:
 #
-#    logPreMirroredFilesByFile.py
+#    logFileToProcess.py
 #
 # Original Author:
 #
@@ -11,12 +11,12 @@
 #
 # Purpose:
 #
-#    Log pre-processed mirrored files into APP_FilesMirrored table in RADAR
+#    Log files to process into APP_FilesMirrored table in RADAR
 #
 # Requirements Satisfied by This Program:
 #
 # Usage:
-#	logPreMirroredFilesByFile.py
+#	logFileToProcess.py
 #
 # Envvars:
 #
@@ -88,6 +88,7 @@ localtime = time.localtime(os.stat(workFile)[8])
 fileTimeStamp = '%s/%s/%s %s:%s' \
     % (localtime[1], localtime[2], localtime[0], localtime[3], localtime[4])
 
+# set file size/1000
 fileSize = os.stat(workFile)[6] / 1000
 if fileSize == 0:
     fileSize = 1

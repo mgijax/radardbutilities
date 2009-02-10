@@ -3,7 +3,7 @@
 #
 # Program:
 #
-#	logPreMirroredFilesByFile.csh
+#	logFileToProcess.csh
 #
 # Original Author:
 #
@@ -11,14 +11,14 @@
 #
 # Purpose:
 #
-#	Wrapper for logPreMirroredFilesByFile.py
-#	which logs mirrored files that are pre-processed to RADAR
+#	Wrapper for logFileToProcess.py
+#	which logs files into RADAR..APP_FilesMirrored
 #
 # Inputs:
 #
-#	RADAR DB Schema Path (ex. /usr/local/mgi/dbutils/radar/radardbschema)
-#	Work File File
-#	Output File Directory
+#	RADAR DB Schema Path    (ex. /usr/local/mgi/dbutils/radar/radardbschema)
+#	Work File               (ex. GenBank.008.001.gz)
+#	Output File Directory   (ex. /data/downloads/ftp.ncbi.nih.gov/genbank_gbpreprocessor/output)
 #	Log File Type		(ex. GenBank_preprocess)
 #
 # Outputs:
@@ -28,11 +28,11 @@
 #
 # Usage:
 #
-#	logPreMirroredFilesByFile.csh RDRDBSchemaPath WorkFileDir OutputFileDir LogFileType
+#	logFileToProcess.csh RDRDBSchemaPath WorkFile OutputFileDir LogFileType
 #
 # Modification History
 #
-# 02/04/2009 lec
+# 02/10/2009 lec
 #	- TR9451/Gene Traps
 #
 
@@ -64,15 +64,15 @@ source ${RDRDBSCHEMAPATH}/Configuration
 # traverse thru the files given
 # uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE, 
 # LOGWORKFILE, LOGOUTPUTDIR, LOGFILETYPE env variables
-./logPreMirroredFilesByFile.py
+./logFilesToProcess.py
 
 # if status != 0, then exit with return code 1
 
 if ( $status != 0 ) then
-	echo 'Error logging pre-processed mirrored files.'
+	echo 'Error logging files to process.'
 	exit 1
 else
-	echo 'Logging pre-processed mirrored files was successful.'
+	echo 'Logging files to process was successful.'
 	exit 0
 endif
  
