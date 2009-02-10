@@ -64,7 +64,7 @@ source ${RDRDBSCHEMAPATH}/Configuration
 # traverse thru the files given
 # uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE, 
 # LOGWORKFILE, LOGOUTPUTDIR, LOGFILETYPE env variables
-./logFilesToProcess.py
+./logFileToProcess.py
 
 # if status != 0, then exit with return code 1
 
