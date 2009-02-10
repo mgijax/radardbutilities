@@ -66,17 +66,24 @@ source ${RDRDBSCHEMAPATH}/Configuration
 # for each file in the work directory....
 #
 foreach file (${LOGWORKDIR})
-    setenv LOGWORKFILE $file
-    echo ./logFilesToProcess.py
-end
 
-# if status != 0, then exit with return code 1
+   if ( -f $file) then
+      echo $file
+      setenv LOGWORKFILE $file
+      ./logFilesToProcess.py
 
-if ( $status != 0 ) then
+      # if status != 0, then exit with return code 1
+
+      if ( $status != 0 ) then
 	echo 'Error logging files to process.'
 	exit 1
-else
+      else
 	echo 'Logging files to process was successful.'
 	exit 0
-endif
- 
+      endif
+   else
+	echo 'No work files exist to process.'
+	exit 0
+   endif
+end
+
