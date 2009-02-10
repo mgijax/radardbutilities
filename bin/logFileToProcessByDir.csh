@@ -64,8 +64,13 @@ source ${RDRDBSCHEMAPATH}/Configuration
 
 #
 # for each file in the work directory....
+#	log the file
+#	check whether the logging was successful (or not)
 #
 foreach file (${LOGWORKDIR})
+
+   # check if this is an actual "file"
+   # if so, log the file
 
    if ( -f $file) then
       echo $file
