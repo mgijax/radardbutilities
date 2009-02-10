@@ -12,7 +12,7 @@
 # Purpose:
 #
 #	Wrapper for logFileToProcess.py
-#	which logs files into RADAR..APP_FilesMirrored
+#	which logs files to process into RADAR..APP_FilesMirrored
 #
 # Inputs:
 #

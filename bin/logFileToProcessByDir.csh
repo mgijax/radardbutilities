@@ -3,7 +3,7 @@
 #
 # Program:
 #
-#	logPreMirroredFiles.csh
+#	logFilesToProcessByDir.csh
 #
 # Original Author:
 #
@@ -11,8 +11,9 @@
 #
 # Purpose:
 #
-#	Wrapper for logPreMirroredFiles.py
-#	which logs mirrored files that are pre-processed to RADAR
+#	Wrapper for logFileToProcess.py
+#	which logs files to processed to RADAR
+#	by directory name
 #
 # Inputs:
 #
@@ -28,12 +29,12 @@
 #
 # Usage:
 #
-#	logPreMirroredFiles.csh RDRDBSchemaPath WorkFileDir OutputFileDir LogFileType
+#	logFilesToProcessByDir.csh RDRDBSchemaPath WorkFileDir OutputFileDir LogFileType
 #
 # Modification History
 #
-# 10/30/2008 lec
-#	- TR9050
+# 02/10/2009 lec
+#	- TR9451, TR9050
 #
 
 cd `dirname $0`
@@ -61,18 +62,21 @@ endif
 
 source ${RDRDBSCHEMAPATH}/Configuration
 
-# traverse thru the files given
-# uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE, 
-# LOGFILEDIR, LOGFILETYPE env variables
-./logPreMirroredFiles.py
+#
+# for each file in the work directory....
+#
+foreach file (${LOGWORKDIR})
+    setenv LOGWORKFILE $file
+    echo ./logFilesToProcess.py
+end
 
 # if status != 0, then exit with return code 1
 
 if ( $status != 0 ) then
-	echo 'Error logging pre-processed mirrored files.'
+	echo 'Error logging files to process.'
 	exit 1
 else
-	echo 'Logging pre-processed mirrored files was successful.'
+	echo 'Logging files to process was successful.'
 	exit 0
 endif
  
