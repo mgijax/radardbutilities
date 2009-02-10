@@ -3,22 +3,23 @@
 #
 # Program:
 #
-#	logFileToProcess.csh
+#	logPreMirroredFilesByFile.csh
 #
 # Original Author:
 #
-#	sc
+#	Lori Corbani
 #
 # Purpose:
 #
-#	Wrapper for logFileToProcess.py
-#	which logs a file to RADAR
+#	Wrapper for logPreMirroredFilesByFile.py
+#	which logs mirrored files that are pre-processed to RADAR
 #
 # Inputs:
 #
 #	RADAR DB Schema Path (ex. /usr/local/mgi/dbutils/radar/radardbschema)
-#	Full path to file to be logged
-#	Log File Type		(ex. GenBank)
+#	Work File File
+#	Output File Directory
+#	Log File Type		(ex. GenBank_preprocess)
 #
 # Outputs:
 #
@@ -27,12 +28,12 @@
 #
 # Usage:
 #
-#	logFileToProcess.csh RDRDBSchemaPath file LogFileType
+#	logPreMirroredFilesByFile.csh RDRDBSchemaPath WorkFileDir OutputFileDir LogFileType
 #
 # Modification History
 #
-# 11/05/2007 sc
-#	- created
+# 02/04/2009 lec
+#	- TR9451/Gene Traps
 #
 
 cd `dirname $0`
@@ -41,13 +42,14 @@ cd `dirname $0`
 #  Verify the argument(s) to the shell script.
 #
 
-if  ( ${#argv} != 3 ) then
-    echo "Usage: $0  RDRDBSchemaPath fileToLog LogFileType"
+if  ( ${#argv} != 4 ) then
+    echo "Usage: $0  RDRDBSchemaPath WorkFileDir OutputFileDir LogFileType"
     exit 1
 else
     setenv RDRDBSCHEMAPATH $1
-    setenv FILETOLOG $2
-    setenv LOGFILETYPE $3
+    setenv LOGWORKFILE $2
+    setenv LOGOUTPUTDIR $3
+    setenv LOGFILETYPE $4
 endif
 
 if ( ! -e ${RDRDBSCHEMAPATH}/Configuration ) then
@@ -59,18 +61,18 @@ endif
 
 source ${RDRDBSCHEMAPATH}/Configuration
 
-# log the file in radar..APP_FilesMirrored
+# traverse thru the files given
 # uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE, 
-# FILETOLOG, LOGFILETYPE env variables
-./logFileToProcess.py
+# LOGWORKFILE, LOGOUTPUTDIR, LOGFILETYPE env variables
+./logPreMirroredFilesByFile.py
 
 # if status != 0, then exit with return code 1
 
 if ( $status != 0 ) then
-	echo 'Error logging mirrored files.'
+	echo 'Error logging pre-processed mirrored files.'
 	exit 1
 else
-	echo 'Logging mirrored files was successful.'
+	echo 'Logging pre-processed mirrored files was successful.'
 	exit 0
 endif
  
