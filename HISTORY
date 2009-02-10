@@ -1,3 +1,16 @@
+TAG: radardbutilities-tr9451-1
+DATE: 02/10/2009
+STAFF: lec
+CHANGES:
+1) TR9451; removing and changing log names
+   changed:logFileToProcess.sh
+   changed:logFileToProcess.py
+   new:    logFileToProcessByDir.sh
+   remove: logPreMirroredFiles.sh
+   remove: logPreMirroredFiles.py
+   remove: logPreMirroredFilesByFile.sh
+   remove: logPreMirroredFilesByFile.py
+
 TAG: radardbutilities-tr9451-BP
 DATE: 02/10/2009
 STAFF: lec
