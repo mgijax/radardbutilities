@@ -3,6 +3,9 @@ DATE: 03/05/2009
 STAFF: sc
 CHANGES:
 1) logFileToProcess.py
+   a) added these two lines
+     bName = os.path.basename(workFile)
+     filePath = os.path.join(outputDir, bName)
 2) logFileToProcessByDir.csh - fixed a couple bugs
    a) foreach file (${LOGWORKDIR}) changed to foreach file (${LOGWORKDIR}/*) 
    b) call logFileToProcess.py instead of logFilesToProcess.py (typo)

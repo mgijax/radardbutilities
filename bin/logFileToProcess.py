@@ -93,9 +93,12 @@ fileSize = os.stat(workFile)[6] / 1000
 if fileSize == 0:
     fileSize = 1
 
+bName = os.path.basename(workFile)
+filePath = os.path.join(outputDir, bName)
+
 # log the file to RADAR
 db.sql('exec APP_logMirroredFile "%s", "%s", %s, "%s", "%s"' 
-    % (fileType, os.path.join(outputDir, workFile), fileSize, fileTimeStamp, unixLogin), None)
+    % (fileType, filePath, fileSize, fileTimeStamp, unixLogin), None)
 
 # only print out the files that were logged on the current date
 

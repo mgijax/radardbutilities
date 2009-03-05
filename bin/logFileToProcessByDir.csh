@@ -3,7 +3,7 @@
 #
 # Program:
 #
-#	logFilesToProcessByDir.csh
+#	logFileToProcessByDir.csh
 #
 # Original Author:
 #
@@ -29,7 +29,7 @@
 #
 # Usage:
 #
-#	logFilesToProcessByDir.csh RDRDBSchemaPath WorkFileDir OutputFileDir LogFileType
+#	logFileToProcessByDir.csh RDRDBSchemaPath WorkFileDir OutputFileDir LogFileType
 #
 # Modification History
 #
@@ -67,7 +67,7 @@ source ${RDRDBSCHEMAPATH}/Configuration
 #	log the file
 #	check whether the logging was successful (or not)
 #
-foreach file (${LOGWORKDIR})
+foreach file (${LOGWORKDIR}/*)
 
    # check if this is an actual "file"
    # if so, log the file
@@ -75,7 +75,7 @@ foreach file (${LOGWORKDIR})
    if ( -f $file) then
       echo $file
       setenv LOGWORKFILE $file
-      ./logFilesToProcess.py
+      ./logFileToProcess.py
 
       # if status != 0, then exit with return code 1
 
