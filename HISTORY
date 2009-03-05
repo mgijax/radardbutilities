@@ -1,3 +1,12 @@
+TAG: radardbutilities-tr9451-3
+DATE: 03/05/2009
+STAFF: sc
+CHANGES:
+1) logFileToProcess.py
+2) logFileToProcessByDir.csh - fixed a couple bugs
+   a) foreach file (${LOGWORKDIR}) changed to foreach file (${LOGWORKDIR}/*) 
+   b) call logFileToProcess.py instead of logFilesToProcess.py (typo)
+
 TAG: radardbutilities-tr9451-2
 TAG: radardbutilities-tr9451-1
 DATE: 02/10/2009
