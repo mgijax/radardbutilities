@@ -100,14 +100,8 @@ filePath = os.path.join(outputDir, bName)
 db.sql('exec APP_logMirroredFile "%s", "%s", %s, "%s", "%s"' 
     % (fileType, filePath, fileSize, fileTimeStamp, unixLogin), None)
 
-# only print out the files that were logged on the current date
-
-results = db.sql('select fileName, fileSize from APP_FilesMirrored ' + \
-	'where fileType = "%s" ' % (fileType) + \
-	'and convert(char(10), creation_date, 101) = "%s" ' % (cdate) + \
-	'order by _File_key', 'auto')
-for r in results:
-    print r['fileName'], `r['fileSize']`
+# print the file that was logged
+print "%s %s %s" % (filePath, fileType, fileSize)
 
 sys.exit(0)
 

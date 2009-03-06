@@ -61,7 +61,6 @@ endif
 
 source ${RDRDBSCHEMAPATH}/Configuration
 
-# traverse thru the files given
 # uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE, 
 # LOGWORKFILE, LOGOUTPUTDIR, LOGFILETYPE env variables
 ./logFileToProcess.py
