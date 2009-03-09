@@ -17,9 +17,12 @@
 # Inputs:
 #
 #	RADAR DB Schema Path    (ex. /usr/local/mgi/dbutils/radar/radardbschema)
-#	Work File               (ex. GenBank.008.001.gz)
-#	Output File Directory   (ex. /data/downloads/ftp.ncbi.nih.gov/genbank_gbpreprocessor/output)
-#	Log File Type		(ex. GenBank_preprocess)
+#	Work File               
+#	(ex. /data/loads/genbank/genbank_gbpreprocessor/work/GenBank.008.001.gz)
+#	Output File Directory   
+#       (ex. /data/downloads/ftp.ncbi.nih.gov/genbank_gbpreprocessor/output)
+#	Log File Type		(ex. GenBank, i.e. this file is being logged
+#				for use by gbseqload)
 #
 # Outputs:
 #

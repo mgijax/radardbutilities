@@ -88,8 +88,18 @@ localtime = time.localtime(os.stat(workFile)[8])
 fileTimeStamp = '%s/%s/%s %s:%s' \
     % (localtime[1], localtime[2], localtime[0], localtime[3], localtime[4])
 
+# get the file size
+fileSize = os.stat(workFile)[6]
+
+# skip if empty file
+if fileSize == 0:
+    # print the file that was logged
+    print '%s %s %s %s' \
+	% ('Skipping empty file: ', workFile, fileType, fileSize)
+    sys.exit(0)
+
 # set file size/1000
-fileSize = os.stat(workFile)[6] / 1000
+fileSize = fileSize / 1000
 if fileSize == 0:
     fileSize = 1
 
