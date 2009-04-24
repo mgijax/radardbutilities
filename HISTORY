@@ -1,3 +1,10 @@
+TAG: radardbutilities-tr9451-5
+DATE: 03/09/2009
+STAFF: sc
+CHANGES:
+1) logFileToProcess.py added checking for empty files i.e.
+   don't log empty files
+
 TAG: radardbutilities-tr9451-4
 DATE: 03/06/2009
 STAFF: sc
