@@ -1,3 +1,48 @@
+TAG: radardbutilities-4-3-0-1
+DATE: 07/09/2009
+STAFF: sc
+CHANGES: merge tr9451 branch to trunk
+
+TAG: radardbutilities-tr9451-5
+DATE: 03/09/2009
+STAFF: sc
+CHANGES:
+1) logFileToProcess.py added checking for empty files i.e.
+   don't log empty files
+
+TAG: radardbutilities-tr9451-4
+DATE: 03/06/2009
+STAFF: sc
+CHANGES:
+1) logFileToProcess.py removed the sql and print of files logged on current date
+   and added printing of only the file logged
+
+TAG: radardbutilities-tr9451-3
+DATE: 03/05/2009
+STAFF: sc
+CHANGES:
+1) logFileToProcess.py
+   a) added these two lines
+     bName = os.path.basename(workFile)
+     filePath = os.path.join(outputDir, bName)
+2) logFileToProcessByDir.csh - fixed a couple bugs
+   a) foreach file (${LOGWORKDIR}) changed to foreach file (${LOGWORKDIR}/*) 
+   b) call logFileToProcess.py instead of logFilesToProcess.py (typo)
+
+TAG: radardbutilities-tr9451-2
+TAG: radardbutilities-tr9451-1
+DATE: 02/10/2009
+STAFF: lec
+CHANGES:
+1) TR9451; removing and changing log names
+   changed:logFileToProcess.sh
+   changed:logFileToProcess.py
+   new:    logFileToProcessByDir.sh
+   remove: logPreMirroredFiles.sh
+   remove: logPreMirroredFiles.py
+   remove: logPreMirroredFilesByFile.sh
+   remove: logPreMirroredFilesByFile.py
+
 TAG: radardbutilities-tr9451-BP
 DATE: 02/10/2009
 STAFF: lec
