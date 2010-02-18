@@ -37,11 +37,11 @@
 # 01/29/2009 lec
 #	- TR9451, Gene Traps
 #
+cd `dirname $0`
 
 #
 #  Verify the argument(s) to the shell script.
 #
-
 if  ( ${#argv} < 4 ) then
     echo "Usage: $0  RDRDBSchemaPath JobStreamName FileType1 FileType2 [MaxFileSize]"
     exit 1
@@ -59,28 +59,32 @@ if ( ! -e ${RDRDBSCHEMAPATH}/Configuration ) then
 	exit 1
 endif
 
+#
 # if no maxfilesize is given, default to 0
-
+#
 if ( ${MAXFILESIZE} == "" ) then
 	setenv MAXFILESIZE 0
 endif
 
-# source the RDR DB Schema Configuration file
+#
+# source the Configuration file
+#
+source ../Configuration
 
-source ${RDRDBSCHEMAPATH}/Configuration
-
+#
 # retrieve files to process based on Job Stream and File Types
 # uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE, 
-# JOBSTREAMNAME1, JOBSTREAMNAME2, FILETYPE1, FILETYPE2, MAXFILESIZE env variables
-cd `dirname $0`
+# JOBSTREAMNAME1, JOBSTREAMNAME2, FILETYPE1, FILETYPE2, MAXFILESIZE
+# env variables
+#
 set filesToProcess=`./getFilesToProcess2.py`
 echo $filesToProcess
 
+#
 # if status != 0, then exit with return code 1
-
+#
 if ( $status != 0 ) then
 	exit 1
 else
 	exit 0
 endif
- 

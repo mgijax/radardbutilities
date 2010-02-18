@@ -47,13 +47,11 @@
 # 04/29/2004 lec
 #	- JSAM; created
 #
-
 cd `dirname $0`
 
 #
 #  Verify the argument(s) to the shell script.
 #
-
 if  ( ${#argv} != 4 ) then
     echo "Usage: $0  RDRDBSchemaPath MirrorFTPPackageFile MirrorFTPPackage LogFileType"
     exit 1
@@ -69,17 +67,22 @@ if ( ! -e ${RDRDBSCHEMAPATH}/Configuration ) then
 	exit 1
 endif
 
-# source the RDR DB Schema Configuration file
+#
+# source the Configuration file
+#
+source ../Configuration
 
-source ${RDRDBSCHEMAPATH}/Configuration
-
-# traverse thru the files in the MirrorFTPPackage local_dir and log new ones in RADAR
+#
+# traverse thru the files in the MirrorFTPPackage local_dir and log new
+# ones in RADAR
 # uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE, 
 # MIRRORFTPPKGFILE, MIRRORFTPPKG, LOGFILETYPE env variables
+#
 ./logMirroredFiles.py
 
+#
 # if status != 0, then exit with return code 1
-
+#
 if ( $status != 0 ) then
 	echo 'Error logging mirrored files.'
 	exit 1
@@ -87,4 +90,3 @@ else
 	echo 'Logging mirrored files was successful.'
 	exit 0
 endif
- 

@@ -38,13 +38,11 @@
 # 12/06/2004 dbm
 #	- Added FileType
 #
-
 cd `dirname $0`
 
 #
 #  Verify the argument(s) to the shell script.
 #
-
 if  ( ${#argv} != 4 ) then
     echo "Usage: $0  RDRDBSchemaPath JobStreamKey FileName FileType"
     exit 1
@@ -60,16 +58,20 @@ if ( ! -e ${RDRDBSCHEMAPATH}/Configuration ) then
 	exit 1
 endif
 
-# source the RDR DB Schema Configuration file
+#
+# source the Configuration file
+#
+source ../Configuration
 
-source ${RDRDBSCHEMAPATH}/Configuration
-
-# uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE, JOBSTREAMKEY,
-# FILENAME and FILETYPE env variables
+#
+# uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE,
+# JOBSTREAMKEY, FILENAME and FILETYPE env variables
+#
 ./logProcessedFile.py
 
+#
 # if status != 0, then exit with return code 1
-
+#
 if ( $status != 0 ) then
 	echo 'Error logging processed file: ' ${FILENAME}
 	exit 1
@@ -77,4 +79,3 @@ else
 	echo 'Logging processed file was successful:  ' ${FILENAME}
 	exit 0
 endif
- 

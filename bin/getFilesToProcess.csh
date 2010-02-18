@@ -35,11 +35,11 @@
 # 04/29/2004 lec
 #	- JSAM; created
 #
+cd `dirname $0`
 
 #
 #  Verify the argument(s) to the shell script.
 #
-
 if  ( ${#argv} < 3 ) then
     echo "Usage: $0  RDRDBSchemaPath JobStreamName FileTypes [MaxFileSize]"
     exit 1
@@ -55,28 +55,31 @@ if ( ! -e ${RDRDBSCHEMAPATH}/Configuration ) then
 	exit 1
 endif
 
+#
 # if no maxfilesize is given, default to 0
-
+#
 if ( ${MAXFILESIZE} == "" ) then
 	setenv MAXFILESIZE 0
 endif
 
-# source the RDR DB Schema Configuration file
+#
+# source the Configuration file
+#
+source ../Configuration
 
-source ${RDRDBSCHEMAPATH}/Configuration
-
+#
 # retrieve files to process based on Job Stream and File Types
 # uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE, 
 # JOBSTREAMNAME, FILETYPES, MAXFILESIZE env variables
-cd `dirname $0`
+#
 set filesToProcess=`./getFilesToProcess.py`
 echo $filesToProcess
 
+#
 # if status != 0, then exit with return code 1
-
+#
 if ( $status != 0 ) then
 	exit 1
 else
 	exit 0
 endif
- 

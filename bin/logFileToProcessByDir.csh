@@ -36,13 +36,11 @@
 # 02/10/2009 lec
 #	- TR9451, TR9050
 #
-
 cd `dirname $0`
 
 #
 #  Verify the argument(s) to the shell script.
 #
-
 if  ( ${#argv} != 4 ) then
     echo "Usage: $0  RDRDBSchemaPath WorkFileDir OutputFileDir LogFileType"
     exit 1
@@ -58,9 +56,10 @@ if ( ! -e ${RDRDBSCHEMAPATH}/Configuration ) then
 	exit 1
 endif
 
-# source the RDR DB Schema Configuration file
-
-source ${RDRDBSCHEMAPATH}/Configuration
+#
+# source the Configuration file
+#
+source ../Configuration
 
 #
 # for each file in the work directory....
@@ -91,4 +90,3 @@ foreach file (${LOGWORKDIR}/*)
 	exit 0
    endif
 end
-
