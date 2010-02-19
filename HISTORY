@@ -1,3 +1,16 @@
+TAG: radardbutilities-tr10086-1
+DATE: 02/19/2010
+STAFF: dbm
+CHANGES:
+1) Changed the following scripts so they source the radardbutilites config
+   file instead of the radardbschema config file:
+       startJobStream.csh, endJobStream.csh, getFilesToProcess.csh,
+       getFilesToProcess2.csh, logFileToProcess.csh,
+       logFileToProcessByDir.csh, logMirroredFiles.csh, logProcessedFile.csh
+2) Changed the following scripts so they no longer expect the radar DB schema
+   product as an argument:
+       startJobStream.csh, endJobStream.csh
+
 TAG: radardbutilities-tr10086-BP
 DATE: 02/18/2010
 STAFF: dbm
