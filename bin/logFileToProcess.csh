@@ -38,13 +38,11 @@
 # 02/10/2009 lec
 #	- TR9451/Gene Traps
 #
-
 cd `dirname $0`
 
 #
 #  Verify the argument(s) to the shell script.
 #
-
 if  ( ${#argv} != 4 ) then
     echo "Usage: $0  RDRDBSchemaPath WorkFileDir OutputFileDir LogFileType"
     exit 1
@@ -60,16 +58,20 @@ if ( ! -e ${RDRDBSCHEMAPATH}/Configuration ) then
 	exit 1
 endif
 
-# source the RDR DB Schema Configuration file
+#
+# source the Configuration file
+#
+source ../Configuration
 
-source ${RDRDBSCHEMAPATH}/Configuration
-
+#
 # uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE, 
 # LOGWORKFILE, LOGOUTPUTDIR, LOGFILETYPE env variables
+#
 ./logFileToProcess.py
 
+#
 # if status != 0, then exit with return code 1
-
+#
 if ( $status != 0 ) then
 	echo 'Error logging files to process.'
 	exit 1
@@ -77,4 +79,3 @@ else
 	echo 'Logging files to process was successful.'
 	exit 0
 endif
- 

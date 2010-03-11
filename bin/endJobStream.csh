@@ -6,7 +6,6 @@
 #
 # Inputs:
 #
-#	path to RADAR DBSchema installation
 #	job stream key
 #	job stream return code
 #
@@ -16,23 +15,21 @@
 #
 # Usage:
 #
-#   endJobStream.csh RADARDBSchemaPath JobStreamKey JobStreamReturnCode
+#   endJobStream.csh JobStreamKey JobStreamReturnCode
 #
-
-setenv DBSCHEMAPATH $1
-setenv JOBSTREAMKEY $2
-setenv JOBSTREAMRETURNCODE $3
-
-if ( ! -e ${DBSCHEMAPATH}/Configuration ) then
-	echo "Cannot locate ${DBSCHEMAPATH}/Configuration file"
-	exit 1
-endif
-
-# source the RADAR DB Schema Configuration file
-source ${DBSCHEMAPATH}/Configuration
-
-# end the job stream
 cd `dirname $0` 
-./endJobStream.py
-exit $status
 
+setenv JOBSTREAMKEY $1
+setenv JOBSTREAMRETURNCODE $2
+
+#
+# source the Configuration file
+#
+source ../Configuration
+
+#
+# end the job stream
+#
+./endJobStream.py
+
+exit $status

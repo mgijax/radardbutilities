@@ -7,7 +7,6 @@
 #
 # Inputs:
 #
-#	path to RADAR DBSchema installation
 #	job stream name
 #
 # Outputs:
@@ -17,30 +16,27 @@
 #
 # Usage:
 #
-#   startJobStream.csh RADARDBSchemaPath JobStreamName
+#   startJobStream.csh JobStreamName
 #
 # History
 #
 # 03/28/2006 lec
 #	- TR 6340; added check of startJobStream.py status
 #
-
-setenv DBSCHEMAPATH $1
-setenv JOBSTREAMNAME "$2"
-
-if ( ! -e ${DBSCHEMAPATH}/Configuration ) then
-	echo "Cannot locate ${DBSCHEMAPATH}/Configuration file"
-	exit 1
-endif
-
-# source the RADAR DB Schema Configuration file
-
-source ${DBSCHEMAPATH}/Configuration
-
-# create the job stream and echo the job stream key
-# uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE and JOBSTREAMNAME env variables
-
 cd `dirname $0`
+
+setenv JOBSTREAMNAME "$1"
+
+#
+# source the Configuration file
+#
+source ../Configuration
+
+#
+# create the job stream and echo the job stream key
+# uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE
+# and JOBSTREAMNAME env variables
+#
 set jobStreamKey=`./startJobStream.py`
 
 if ( $status ) then
@@ -49,11 +45,11 @@ endif
 
 echo $jobStreamKey
 
+#
 # if job stream key is -1, then exit with return code 1
-
+#
 if ( $jobStreamKey == -1 ) then
 	exit 1
 else
 	exit 0
 endif
- 
