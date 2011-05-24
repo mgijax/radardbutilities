@@ -1,3 +1,10 @@
+TAG: radardbutilities-4-4-1-1
+DATE: 05/24/2011
+STAFF: sc
+CHANGES: 
+1) logFileToProcessByDir.csh - fixed bug whereby only one file in the directory
+   was ever getting processed.
+
 TAG: radardbutilities-4-3-3-1
 DATE: 03/11/2010
 STAFF: dbm

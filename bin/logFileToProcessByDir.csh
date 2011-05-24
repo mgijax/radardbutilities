@@ -29,9 +29,13 @@
 #
 # Usage:
 #
-#	logFileToProcessByDir.csh RDRDBSchemaPath WorkFileDir OutputFileDir LogFileType
+#	logFileToProcessByDir.csh \
+#	    RDRDBSchemaPath WorkFileDir OutputFileDir LogFileType
 #
 # Modification History
+#
+# 05/24/2011 sc
+#	- Fixed bug whereby only one file in directory ever processed
 #
 # 02/10/2009 lec
 #	- TR9451, TR9050
@@ -66,27 +70,18 @@ source ../Configuration
 #	log the file
 #	check whether the logging was successful (or not)
 #
-foreach file (${LOGWORKDIR}/*)
+foreach file ( ${LOGWORKDIR}/* )
 
    # check if this is an actual "file"
    # if so, log the file
-
-   if ( -f $file) then
-      echo $file
+   if ( -f $file ) then
       setenv LOGWORKFILE $file
       ./logFileToProcess.py
 
-      # if status != 0, then exit with return code 1
-
+      # if status != 0, then report
       if ( $status != 0 ) then
-	echo 'Error logging files to process.'
+	echo "Error logging files to process: $file"
 	exit 1
-      else
-	echo 'Logging files to process was successful.'
-	exit 0
       endif
-   else
-	echo 'No work files exist to process.'
-	exit 0
    endif
 end
