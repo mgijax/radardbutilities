@@ -1,3 +1,9 @@
+TAG: radardbutilities-4-4-1-2
+DATE: 01/04/2012
+STAFF: dbm
+CHANGES: 
+1) Added "-f" option to csh startup in config file
+
 TAG: radardbutilities-4-4-1-1
 DATE: 05/24/2011
 STAFF: sc
