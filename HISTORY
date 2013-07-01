@@ -1,3 +1,10 @@
+TAG: radardbutilities-5-1-4-1
+DATE: 07/01/2013
+STAFF: lec
+CHANGES: from scrum-dog/Sybase 15 testing
+- changed "-f -x" to "-fx" for solaris/linux
+this command will work for both platforms
+
 TAG: radardbutilities-4-4-1-2
 DATE: 01/04/2012
 STAFF: dbm
