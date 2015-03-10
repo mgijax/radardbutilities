@@ -74,11 +74,14 @@ jobStreamRC = os.environ['JOBSTREAMRETURNCODE']
 # Initialize db.py DBMS parameters
 db.set_sqlLogin(user, password, server, database)
 #db.set_sqlLogFunction(db.sqlLogAll)
+db.useOneConnection(1)
  
 # End the Job Stream 
 cmds = []
 cmds.append('select * from APP_endJobStream (%s, %s)'  % (jobStreamKey, jobStreamRC))
 results = db.sql(cmds, 'auto')
 status = int(results[0][0]['app_endjobstream'])
+
+db.commit()
 sys.exit(status)
 
