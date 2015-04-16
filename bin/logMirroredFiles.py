@@ -140,6 +140,7 @@ for line in pkgFile.readlines():
 		    # log the file to RADAR
 		    db.sql('exec APP_logMirroredFile "%s", "%s", %s, "%s", "%s"' 
 			% (fileType, os.path.join(local_dir, f), fileSize, fileTimeStamp, unixLogin), None)
+		    db.commit()
 
 if not foundPackage:
     print 'Could not find package: "%s"' % (pkg)
