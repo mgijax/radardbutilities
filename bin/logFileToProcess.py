@@ -83,6 +83,7 @@ fileType = os.environ['LOGFILETYPE']
 
 # Initialize db.py DBMS parameters
 db.set_sqlLogin(user, password, server, database)
+db.useOneConnection(1)
 
 localtime = time.localtime(os.stat(workFile)[8])
 fileTimeStamp = '%s/%s/%s %s:%s' \
@@ -107,11 +108,14 @@ bName = os.path.basename(workFile)
 filePath = os.path.join(outputDir, bName)
 
 # log the file to RADAR
-db.sql('exec APP_logMirroredFile "%s", "%s", %s, "%s", "%s"' 
+db.sql('exec APP_logMirroredFile "%s", "%s", %s, "%s", "%s"' \
     % (fileType, filePath, fileSize, fileTimeStamp, unixLogin), None)
+db.commit()
 
 # print the file that was logged
 print "%s %s %s" % (filePath, fileType, fileSize)
+
+db.useOneConnection(0)
 
 sys.exit(0)
 
