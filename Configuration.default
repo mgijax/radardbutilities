@@ -14,9 +14,6 @@ endif
 
 source ${MGICONFIG}/master.config.csh
 
-# data directory
-setenv DATADIR ${RADAR_DBUTILS}/data
-
 # log directory
 setenv LOGDIR ${RADAR_DBUTILS}/logs
 
