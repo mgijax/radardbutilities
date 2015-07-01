@@ -67,6 +67,7 @@ import os
 import string
 import db
 
+db.useOneConnection(1)
 #
 # Main
 #
@@ -85,4 +86,6 @@ db.set_sqlLogin(user, password, server, database)
  
 # Log the processed file
 db.sql('exec APP_logProcessedFile %s, "%s", "%s"' % (jobStreamKey, fileName, fileType), None)
+db.commit()
 
+db.useOneConnection(0)

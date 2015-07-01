@@ -89,6 +89,7 @@ fileType = os.environ['LOGFILETYPE']
 
 # Initialize db.py DBMS parameters
 db.set_sqlLogin(user, password, server, database)
+db.useOneConnection(1)
  
 # Find the MIRRORFTPPKGFILE and retrieve the local_dir name from it
 
@@ -138,8 +139,9 @@ for line in pkgFile.readlines():
 		      continue
 
 		    # log the file to RADAR
-		    db.sql('exec APP_logMirroredFile "%s", "%s", %s, "%s", "%s"' 
+		    db.sql('exec APP_logMirroredFile "%s", "%s", %s, "%s", "%s"' \
 			% (fileType, os.path.join(local_dir, f), fileSize, fileTimeStamp, unixLogin), None)
+		    db.commit()
 
 if not foundPackage:
     print 'Could not find package: "%s"' % (pkg)
@@ -158,5 +160,6 @@ results = db.sql('select fileName, fileSize from APP_FilesMirrored ' + \
 for r in results:
     print r['fileName'], `r['fileSize']`
 
+db.useOneConnection(0)
 sys.exit(0)
 

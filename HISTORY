@@ -20,6 +20,14 @@ CloneLibrary.csh
 RIKENClones.csh 
 NIAParentDaughterClones.csh
 
+TAG: radardbutilities-tr11750-1
+DATE: 05/04/15
+STAFF: sc
+CHANGES: TR11750 Infrastructure II
+1) All changes made by Kevin thus far plus add db.commit to logFileToProcess.py
+2) Branch point tag never created for 'radardbutilities-tr11750'ties-tr11750-1, 
+   ayes this is the full tag name
+
 TAG: radardbutilities-5-1-4-4
 TAG: radardbutilities-5-1-4-3
 DATE: 08/20/2013
