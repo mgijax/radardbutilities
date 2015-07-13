@@ -79,9 +79,9 @@ db.set_sqlLogin(user, password, server, database)
 # Retrieve the files
 filesToProcess = []
 for f in string.split(fileTypes, ' '):
-    results = db.sql('exec APP_getFilesToProcess "%s", "%s", %s'  % (jobStreamName, f, maxFileSize), 'auto')
+    results = db.sql("select * from APP_getFilesToProcess( '%s', '%s', %s)"  % (jobStreamName, f, maxFileSize), 'auto')
     for r in results:
-	filesToProcess.append(r['fileName'])
+	filesToProcess.append(r['filename'])
 
 # print to stdout so wrapper can grab it
 print string.join(filesToProcess, ' ')
