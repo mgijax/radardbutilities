@@ -66,22 +66,18 @@ endif
 source ../Configuration
 
 #
-# for each file in the work directory....
+# for each ".gz" file in the work directory that is newer than 60 days ....
 #	log the file
 #	check whether the logging was successful (or not)
 #
-foreach file ( ${LOGWORKDIR}/* )
+foreach file ( `find ${LOGWORKDIR} -follow -type f -name "*.gz" -mtime -60` )
 
-   # check if this is an actual "file"
-   # if so, log the file
-   if ( -f $file ) then
-      setenv LOGWORKFILE $file
-      ./logFileToProcess.py
+    setenv LOGWORKFILE $file
+    ./logFileToProcess.py
 
-      # if status != 0, then report
-      if ( $status != 0 ) then
+    # if status != 0, then report
+    if ( $status != 0 ) then
 	echo "Error logging files to process: $file"
 	exit 1
-      endif
-   endif
+    endif
 end
