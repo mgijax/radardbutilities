@@ -77,7 +77,7 @@ db.set_sqlLogin(user, password, server, database)
 db.useOneConnection(1)
  
 # Create the Job Stream 
-results = db.sql('select * from APP_createJobStream(\'%s\', \'%s\')'  % (jobStreamName, unixLogin), 'auto')
+results = db.sql("select * from APP_createJobStream('%s', '%s')"  % (jobStreamName, unixLogin), 'auto')
 jobStreamKey = int(results[0]['app_createjobstream'])
 
 db.commit()

@@ -85,7 +85,7 @@ fileType = os.environ['FILETYPE']
 db.set_sqlLogin(user, password, server, database)
  
 # Log the processed file
-db.sql('exec APP_logProcessedFile %s, "%s", "%s"' % (jobStreamKey, fileName, fileType), None)
+db.sql("select * from APP_logProcessedFile( %s, '%s', '%s')" % (jobStreamKey, fileName, fileType), None)
 db.commit()
 
 db.useOneConnection(0)

@@ -81,7 +81,7 @@ db.set_sqlLogin(user, password, server, database)
  
 # Retrieve the files
 filesToProcess = []
-results = db.sql('exec APP_getFilesToProcess_2 "%s", "%s", "%s", "%s", %s'  \
+results = db.sql("select * from APP_getFilesToProcess_2( '%s', '%s', '%s', '%s', %s)"  \
 	% (jobStreamName1, jobStreamName2, fileType1, fileType2, maxFileSize), 'auto')
 for r in results:
 	filesToProcess.append(r['fileName'])

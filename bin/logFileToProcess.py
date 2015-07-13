@@ -108,7 +108,7 @@ bName = os.path.basename(workFile)
 filePath = os.path.join(outputDir, bName)
 
 # log the file to RADAR
-db.sql('exec APP_logMirroredFile "%s", "%s", %s, "%s", "%s"' \
+db.sql("select * from APP_logMirroredFile( '%s', '%s', %s, '%s', '%s')" \
     % (fileType, filePath, fileSize, fileTimeStamp, unixLogin), None)
 db.commit()
 
