@@ -60,6 +60,9 @@ import os
 import string
 import db
 
+db.setAutoTranslate(False)
+db.setAutoTranslateBE(False)
+
 #
 # Main
 #
@@ -79,8 +82,8 @@ db.useOneConnection(1)
 # Create the Job Stream 
 results = db.sql("select * from APP_createJobStream('%s', '%s')"  % (jobStreamName, unixLogin), 'auto')
 jobStreamKey = int(results[0]['app_createjobstream'])
-
 db.commit()
+db.useOneConnection(0)
 
 # print to stdout so wrapper can grab it
 print jobStreamKey	

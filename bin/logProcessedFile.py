@@ -67,7 +67,9 @@ import os
 import string
 import db
 
-db.useOneConnection(1)
+db.setAutoTranslate(False)
+db.setAutoTranslateBE(False)
+
 #
 # Main
 #
@@ -83,9 +85,9 @@ fileType = os.environ['FILETYPE']
 
 # Initialize db.py DBMS parameters
 db.set_sqlLogin(user, password, server, database)
+db.useOneConnection(1)
  
 # Log the processed file
 db.sql("select * from APP_logProcessedFile( %s, '%s', '%s')" % (jobStreamKey, fileName, fileType), None)
 db.commit()
-
 db.useOneConnection(0)
