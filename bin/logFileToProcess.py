@@ -65,9 +65,6 @@ import time
 import db
 import mgi_utils
 
-db.setAutoTranslate(False)
-db.setAutoTranslateBE(False)
-
 cdate = mgi_utils.date('%m/%d/%Y')
 
 #

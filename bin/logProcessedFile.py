@@ -67,9 +67,6 @@ import os
 import string
 import db
 
-db.setAutoTranslate(False)
-db.setAutoTranslateBE(False)
-
 #
 # Main
 #

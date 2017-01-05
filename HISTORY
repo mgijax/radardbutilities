@@ -1,3 +1,9 @@
+TAG: radardbutilities-6-0-7-1
+DATE: 01/04/2017
+STAFF: lec 
+CHANGES:
+1) TR12069/obsolete db.setAutoTranslate()
+
 TAG: radardbutilities-6-0-4-1
 DATE: 04/28/2016
 STAFF: lec
