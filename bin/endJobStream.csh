@@ -30,6 +30,6 @@ source ../Configuration
 #
 # end the job stream
 #
-./endJobStream.py
+${PYTHON} ./endJobStream.py
 
 exit $status

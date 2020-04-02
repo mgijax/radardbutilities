@@ -1,5 +1,3 @@
-#!/usr/local/bin/python
-
 #
 # Program:
 #
@@ -68,7 +66,7 @@ server = os.environ['RADAR_DBSERVER']
 database = os.environ['RADAR_DBNAME']
 user = os.environ['RADAR_DBUSER']
 passwordFileName = os.environ['RADAR_DBPASSWORDFILE']
-password = string.strip(open(passwordFileName, 'r').readline())
+password = str.strip(open(passwordFileName, 'r').readline())
 jobStreamName = os.environ['JOBSTREAMNAME']
 unixLogin = os.environ['USER']
 
@@ -83,5 +81,4 @@ db.commit()
 db.useOneConnection(0)
 
 # print to stdout so wrapper can grab it
-print jobStreamKey	
-
+print(jobStreamKey)	

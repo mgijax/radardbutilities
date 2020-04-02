@@ -1,5 +1,3 @@
-#!/usr/local/bin/python
-
 #
 # Program:
 #
@@ -75,7 +73,7 @@ server = os.environ['RADAR_DBSERVER']
 database = os.environ['RADAR_DBNAME']
 user = os.environ['RADAR_DBUSER']
 passwordFileName = os.environ['RADAR_DBPASSWORDFILE']
-password = string.strip(open(passwordFileName, 'r').readline())
+password = str.strip(open(passwordFileName, 'r').readline())
 unixLogin = os.environ['USER']
 workFile = os.environ['LOGWORKFILE']
 outputDir = os.environ['LOGOUTPUTDIR']
@@ -95,8 +93,8 @@ fileSize = os.stat(workFile)[6]
 # skip if empty file
 if fileSize == 0:
     # print the file that was logged
-    print '%s %s %s %s' \
-	% ('Skipping empty file: ', workFile, fileType, fileSize)
+    print('%s %s %s %s' \
+        % ('Skipping empty file: ', workFile, fileType, fileSize))
     sys.exit(0)
 
 # set file size/1000
@@ -113,9 +111,8 @@ db.sql("select * from APP_logMirroredFile( '%s', '%s', %s, '%s', '%s')" \
 db.commit()
 
 # print the file that was logged
-print "%s %s %s" % (filePath, fileType, fileSize)
+print("%s %s %s" % (filePath, fileType, fileSize))
 
 db.useOneConnection(0)
 
 sys.exit(0)
-

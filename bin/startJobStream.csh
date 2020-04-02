@@ -37,7 +37,7 @@ source ../Configuration
 # uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE
 # and JOBSTREAMNAME env variables
 #
-set jobStreamKey=`./startJobStream.py`
+set jobStreamKey=`${PYTHON} ./startJobStream.py`
 
 if ( $status ) then
 	exit 1

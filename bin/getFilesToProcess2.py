@@ -1,5 +1,3 @@
-#!/usr/local/bin/python
-
 #
 # Program:
 #
@@ -69,7 +67,7 @@ server = os.environ['RADAR_DBSERVER']
 database = os.environ['RADAR_DBNAME']
 user = os.environ['RADAR_DBUSER']
 passwordFileName = os.environ['RADAR_DBPASSWORDFILE']
-password = string.strip(open(passwordFileName, 'r').readline())
+password = str.strip(open(passwordFileName, 'r').readline())
 jobStreamName1 = os.environ['JOBSTREAMNAME1']
 jobStreamName2 = os.environ['JOBSTREAMNAME2']
 fileType1 = os.environ['FILETYPE1']
@@ -82,10 +80,9 @@ db.set_sqlLogin(user, password, server, database)
 # Retrieve the files
 filesToProcess = []
 results = db.sql("select * from APP_getFilesToProcess_2( '%s', '%s', '%s', '%s', %s)"  \
-	% (jobStreamName1, jobStreamName2, fileType1, fileType2, maxFileSize), 'auto')
+        % (jobStreamName1, jobStreamName2, fileType1, fileType2, maxFileSize), 'auto')
 for r in results:
-	filesToProcess.append(r['fileName'])
+        filesToProcess.append(r['fileName'])
 
 # print to stdout so wrapper can grab it
-print string.join(filesToProcess, ' ')
-
+print(str.join(filesToProcess, ' '))

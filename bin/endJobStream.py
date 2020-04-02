@@ -1,5 +1,3 @@
-#!/usr/local/bin/python
-
 #
 # Program:
 #
@@ -67,7 +65,7 @@ server = os.environ['RADAR_DBSERVER']
 database = os.environ['RADAR_DBNAME']
 user = os.environ['RADAR_DBUSER']
 passwordFileName = os.environ['RADAR_DBPASSWORDFILE']
-password = string.strip(open(passwordFileName, 'r').readline())
+password = str.strip(open(passwordFileName, 'r').readline())
 jobStreamKey = os.environ['JOBSTREAMKEY']
 jobStreamRC = os.environ['JOBSTREAMRETURNCODE']
 
@@ -81,4 +79,3 @@ status = int(results[0]['app_endjobstream'])
 db.commit()
 db.useOneConnection(0)
 sys.exit(status)
-

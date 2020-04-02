@@ -73,7 +73,7 @@ source ../Configuration
 foreach file ( `find ${LOGWORKDIR} -follow -type f -name "*.gz" -mtime -60` )
 
     setenv LOGWORKFILE $file
-    ./logFileToProcess.py
+    ${PYTHON} ./logFileToProcess.py
 
     # if status != 0, then report
     if ( $status != 0 ) then

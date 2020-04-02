@@ -67,7 +67,7 @@ source ../Configuration
 # uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE,
 # JOBSTREAMKEY, FILENAME and FILETYPE env variables
 #
-./logProcessedFile.py
+${PYTHON} ./logProcessedFile.py
 
 #
 # if status != 0, then exit with return code 1

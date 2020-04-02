@@ -72,7 +72,7 @@ source ../Configuration
 # uses RADAR_DBSERVER, RADAR_DBNAME, RADAR_DBUSER, RADAR_DBPASSWORDFILE, 
 # JOBSTREAMNAME, FILETYPES, MAXFILESIZE env variables
 #
-set filesToProcess=`./getFilesToProcess.py`
+set filesToProcess=`${PYTHON} ./getFilesToProcess.py`
 echo $filesToProcess
 
 #

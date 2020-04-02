@@ -77,7 +77,7 @@ source ../Configuration
 # JOBSTREAMNAME1, JOBSTREAMNAME2, FILETYPE1, FILETYPE2, MAXFILESIZE
 # env variables
 #
-set filesToProcess=`./getFilesToProcess2.py`
+set filesToProcess=`${PYTHON} ./getFilesToProcess2.py`
 echo $filesToProcess
 
 #
