@@ -56,7 +56,6 @@
 
 import sys
 import os
-import string
 import db
 
 #
@@ -85,4 +84,4 @@ for r in results:
         filesToProcess.append(r['fileName'])
 
 # print to stdout so wrapper can grab it
-print(str.join(filesToProcess, ' '))
+print(str.join(' ', filesToProcess))

@@ -58,7 +58,6 @@
 
 import sys
 import os
-import string
 import time
 import db
 import mgi_utils
