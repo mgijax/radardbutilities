@@ -97,7 +97,7 @@ if fileSize == 0:
     sys.exit(0)
 
 # set file size/1000
-fileSize = fileSize / 1000
+fileSize = int(fileSize / 1000)
 if fileSize == 0:
     fileSize = 1
 

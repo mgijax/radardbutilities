@@ -1,3 +1,9 @@
+TAG: radardbutilities-6-0-16-2
+DATE: 10/23/2020
+STAFF: sc
+Bug in logFilesToProcess.py - need to cast results
+    of int division - python3 returns a float
+
 TAG: radardbutilities-6-0-16-1
 DATE: 08/21/2020
 STAFF: lec
